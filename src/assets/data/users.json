@@ -1,0 +1,252 @@
+{
+  "users": [
+    {
+      "name": "John",
+      "surname": "Doe",
+      "username": "johndoe",
+      "mail": "johndoe@example.com",
+      "password": "password123",
+      "id": "b1e8"
+    },
+    {
+      "name": "Jane",
+      "surname": "Smith",
+      "username": "janesmith",
+      "mail": "janesmith@example.com",
+      "password": "password456",
+      "id": "6a06"
+    },
+    {
+      "name": "Michael",
+      "surname": "Johnson",
+      "username": "mjohnson",
+      "mail": "mjohnson@example.com",
+      "password": "passmike789",
+      "id": "5d29"
+    },
+    {
+      "name": "Emily",
+      "surname": "Williams",
+      "username": "ewilliams",
+      "mail": "ewilliams@example.com",
+      "password": "emily2021",
+      "id": "fa55"
+    },
+    {
+      "name": "David",
+      "surname": "Brown",
+      "username": "dbrown",
+      "mail": "dbrown@example.com",
+      "password": "brown12345",
+      "id": "638c"
+    },
+    {
+      "name": "Jessica",
+      "surname": "Jones",
+      "username": "jjones",
+      "mail": "jjones@example.com",
+      "password": "jessicaPass99",
+      "id": "3b09"
+    },
+    {
+      "name": "Chris",
+      "surname": "Taylor",
+      "username": "ctaylor",
+      "mail": "ctaylor@example.com",
+      "password": "chrisT88",
+      "id": "30db"
+    },
+    {
+      "name": "Laura",
+      "surname": "Lee",
+      "username": "llee",
+      "mail": "llee@example.com",
+      "password": "lauraPass123",
+      "id": "0e72"
+    },
+    {
+      "name": "Robert",
+      "surname": "Moore",
+      "username": "rmoore",
+      "mail": "rmoore@example.com",
+      "password": "mooreR1985",
+      "id": "2882"
+    },
+    {
+      "name": "Sophia",
+      "surname": "Clark",
+      "username": "sclark",
+      "mail": "sclark@example.com",
+      "password": "sophiaC789",
+      "id": "f995"
+    },
+    {
+      "id": "f4d9",
+      "name": "wojtek",
+      "surname": "labedz",
+      "username": "wlabedz",
+      "mail": "wlabedz@student.agh.edu.pl",
+      "password": "password"
+    },
+    {
+      "id": "f395",
+      "name": "wojtek",
+      "surname": "labedz",
+      "username": "wlabedz2",
+      "mail": "if24x003@technikum-wien.at",
+      "password": "password"
+    },
+    {
+      "id": "57c9",
+      "name": "wojtek",
+      "surname": "labedz",
+      "username": "wlabedz3",
+      "mail": "if24x0099@technikum-wien.at",
+      "password": "password"
+    },
+    {
+      "id": "dc04",
+      "name": "urszula",
+      "surname": "kostuch",
+      "username": "ukostuch",
+      "mail": "if24x002@technikum-wien.at",
+      "password": "password"
+    },
+    {
+      "id": "f6eb",
+      "name": "urszula",
+      "surname": "kostuch",
+      "username": "ukostuch2",
+      "mail": "if24x02@technikum-wien.at",
+      "password": "abc"
+    },
+    {
+      "id": "32ad",
+      "name": "Wojciech",
+      "surname": "Łabędź",
+      "username": "wlabedz6",
+      "mail": "wlabedz@student.agh.edu.pl6",
+      "password": "pass"
+    },
+    {
+      "id": "7ab2",
+      "name": "a",
+      "surname": "b",
+      "username": "v",
+      "mail": "wlabedz@student.agh.edu.pl3",
+      "password": "pass"
+    },
+    {
+      "id": "c0cb",
+      "name": "",
+      "surname": "b",
+      "username": "vf",
+      "mail": "wlabedz@student.agh.edu.pl23",
+      "password": "pass"
+    },
+    {
+      "id": "1d49",
+      "name": "w",
+      "surname": "w",
+      "username": "w2",
+      "mail": "wlabedz@student.agh.edu.pl231",
+      "password": "pass1"
+    },
+    {
+      "id": "be8a",
+      "name": "a",
+      "surname": "w",
+      "username": "we",
+      "mail": "wlabedz@student.agh.edu.pl2311",
+      "password": "123"
+    }
+  ],
+  "offices": [
+    {
+      "id": "1",
+      "district": "19",
+      "name": "Döbling",
+      "phoneNumber": "+43 1111 11 11",
+      "address": "Heiligenstädter Straße 82, 1190 Wien",
+      "photo": "https://www.wien.gv.at/bilder/_imager/bilder/bv19/452850/nussdorf-heiligenstadt-greinergasse_f2e2f07c9d9b49468c74d5663e9663c8.jpg",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    },
+    {
+      "id": "2",
+      "district": "20",
+      "name": "Brigittenau",
+      "phoneNumber": "+43 1111 11 12",
+      "address": "Schottenaustraße 2-16, 1200 Wien",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!",
+      "photo": "https://www.wko.at/GenticsImageStore/3200/1200/cropandresize/smart/0/466/3200/1200/wien/1200allerheiligenplatz-gek-6955-detail.jpg"
+    },
+    {
+      "id": "3",
+      "district": "2",
+      "name": "Leopoldstadt",
+      "phoneNumber": "+43 1111 11 13",
+      "address": "Stuwerstraße 19, 1020 Wien",
+      "photo": "https://links.wien/wp-content/uploads/2020/09/leopoldstadt.jpg",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    
+    },
+    {
+      "id": "4",
+      "district": "22",
+      "name": "Donaustadt",
+      "phoneNumber": "+43 1111 11 14",
+      "address": "Schillochweg 5, 1220 Wien",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRABaLBRxBHeUAjv3_egV9L6ZoYRkRQCZTYQ&s",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    
+    },
+    {
+      "id": "5",
+      "district": "21",
+      "name": "Floridsdorf",
+      "phoneNumber": "+43 1111 11 15",
+      "address": "Gerstlgasse 3, 1210 Wien",
+      "photo": "https://magazin.wienmuseum.at/fileadmin/_processed_/a/e/csm_Floridsdorf_neu_Slideshow_08_d4d1c98937.jpg",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    
+    },
+    {
+      "id": "6",
+      "district": "11",
+      "name": "Simmering",
+      "phoneNumber": "+43 1111 11 16",
+      "address": "Bleriotgasse 1, 1110 Wien",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp2yc1QwJ-7hu7JgaScUSdyIbTj8iMlPOlUg&s",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    
+    },
+    {
+      "id": "7",
+      "district": "3",
+      "name": "Landstraße",
+      "phoneNumber": "+43 1111 11 17",
+      "address": "Rochusgasse 21, 1030 Wien",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCm4ACsy7wraIzK6xCeXsX924zuvoN_1aylA&s",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+  
+    },
+    {
+      "id": "8",
+      "district": "1",
+      "name": "Innere Stadt",
+      "phoneNumber": "+43 1111 11 18",
+      "address": "Stephansplatz 12, 1010 Wien",
+      "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOgzZ6EQyUF1CgcXd05x8HvWK0g1VQlZ-fXg&s",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+    },
+    {
+      "id": "9",
+      "district": "11",
+      "name": "Simmering",
+      "phoneNumber": "+43 1111 11 19",
+      "address": "Studenygasse 5, 1110 Wien",
+      "photo": "https://www.wko.at/GenticsImageStore/3200/1200/cropandresize/smart/0/467/3200/1200/wien/39-simmering-chst-01-1969.jpg",
+      "description": "Welcome to the Lost and Found Office, your go-to place for reclaiming lost items and reporting found belongings! Nestled in the heart of downtown, our office is located on the second floor of the City Hall Annex, just across from the bustling central park. As you enter, you’ll find a bright and inviting space adorned with colorful posters showcasing items that have been found recently, along with friendly staff ready to assist you. Our office hours are Monday through Friday, from 9 AM to 5 PM. We are committed to helping you reconnect with your lost possessions—whether it’s your favorite pair of sunglasses, a lost umbrella, or a cherished piece of jewelry. To ensure a smooth experience, please bring a form of identification and a brief description of the item you’re looking for. Our staff will guide you through the process of searching our extensive inventory of lost items. For your convenience, there is ample parking available nearby, as well as access to public transportation. We look forward to helping you reunite with your belongings!"
+     }
+  ]
+}
