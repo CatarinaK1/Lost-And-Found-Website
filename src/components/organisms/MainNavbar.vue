@@ -16,7 +16,7 @@ defineProps({
 </script>
 
 <template>
-  <nav class="bg-my-green border-b border-green-500" style="height: 100px;">
+  <nav class="bg-my-green" style="height: 100px;">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 h-full">
       <div class="flex h-full items-center justify-between">
         <div class="flex flex-1 items-center justify-center md:items-stretch md:justify-start h-full">

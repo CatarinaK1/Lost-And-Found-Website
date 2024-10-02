@@ -46,7 +46,12 @@ const routes = [
     path: '/offices/:id',
     name: 'office',
     component: import(/* webpackChunkName: "about" */ '@/views/OfficeView.vue'),
-},
+  },
+  {
+    path: '/review',
+    name: 'Add review',
+    component: () => import(/* webpackChunkName: "about" */ '@/views/AddReviewView.vue'),
+  },
 ];
 
 const router = createRouter({
