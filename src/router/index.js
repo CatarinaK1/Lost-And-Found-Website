@@ -5,7 +5,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/HomeView.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue'),
   },
   {
     path: '/about',
@@ -30,22 +30,28 @@ const routes = [
   {
     path: '/howto',
     name: 'HowTo',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/HowDoesItWorkView.vue'),
+    component: () => import(/* webpackChunkName: "howto" */ '@/views/HowDoesItWorkView.vue'),
   },
   {
     path: '/offices',
     name: 'Offices',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/OfficesView.vue'),
+    component: () => import(/* webpackChunkName: "offices" */ '@/views/OfficesView.vue'),
   },
   {
     path: '/found',
     name: 'Found Items',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/FoundItemsView.vue'),
+    component: () => import(/* webpackChunkName: "foundItems" */ '@/views/FoundItemsView.vue'),
   },
   {
     path: '/offices/:id',
     name: 'office',
     component: import(/* webpackChunkName: "about" */ '@/views/OfficeView.vue'),
+  },
+  {
+    path: '/found/:id', 
+    name: 'ItemDetails',
+    component: () => import(/* webpackChunkName: "itemDetails" */ '@/views/ItemDetailsView.vue'),
+    props: true,
   },
   {
     path: '/review',
