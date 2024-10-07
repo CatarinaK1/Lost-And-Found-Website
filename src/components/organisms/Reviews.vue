@@ -51,7 +51,7 @@ const props = defineProps({
         <div class="flex justify-between mt-6">
           <button 
             @click="prevPage" 
-            class="bg-my-green hover:bg-my-dark-green text-my-white py-2 px-4 mr-6 rounded"
+            class="flex-shrink-0 bg-my-green hover:bg-my-dark-green text-my-white w-16 py-2 px-4 mr-6 rounded"
           >
             <img :src="left">
           </button>
@@ -60,7 +60,7 @@ const props = defineProps({
           </div>
           <button 
             @click="nextPage" 
-            class="bg-my-green hover:bg-my-dark-green text-my-white py-2 px-4 ml-6 rounded"
+            class="flex-shrink-0 bg-my-green hover:bg-my-dark-green text-my-white w-16 py-2 px-4 ml-6 rounded"
           >
             <img :src="right">
           </button>
