@@ -55,7 +55,7 @@ const props = defineProps({
           >
             <img :src="left">
           </button>
-          <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ReviewCard v-for="review in cutReviews" :key="review.id" :details="review"/>
           </div>
           <button 

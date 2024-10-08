@@ -18,9 +18,6 @@ const props = defineProps({
         <Reviews :logged="props.logged"/>
       </div>
       </div>
-      <div>
-        This is the home page
-      </div>
     </div>
   </template>
   

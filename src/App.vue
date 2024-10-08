@@ -1,6 +1,7 @@
 <script setup>
 import MainNavbar from '@/components/organisms/MainNavbar.vue';
 import YourProfileView from '@/views/YourProfileView.vue';
+import Footer from '@/components/organisms/Footer.vue'
 import { RouterView } from 'vue-router';
 import { ref } from 'vue';
 
@@ -21,5 +22,6 @@ const handleLogout = () => {
 <template>
   <MainNavbar :logged="username"/>
   <RouterView :logged="username" @login="handleLogin" @logout="handleLogout"/> 
+  <Footer></Footer>
 </template>
 
