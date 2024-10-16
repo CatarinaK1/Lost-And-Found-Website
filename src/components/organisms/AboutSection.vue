@@ -10,7 +10,8 @@
         required: true
         },
         text: {
-        type: String,
+        // type: String,
+        type: Array,
         required: true
         }
     }
@@ -25,8 +26,8 @@
   flex-direction: row; /* Default: display elements side by side */
   align-items: center;
   justify-content: space-between;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 10%;
+  margin-bottom: 10%;
   flex-wrap: wrap; /* Ensure content wraps if necessary */
 }
 
@@ -71,7 +72,7 @@ h2 {
 
 hr {
   /* width: 100px; */
-  border: 3px solid #56B040;
+  border: 4px solid #56B040;
   margin-bottom: 10px;
 }
 
@@ -93,7 +94,8 @@ p{
       <div class="text-section">
         <h2>{{ header }}</h2>
         <hr />
-        <p>{{ text }}</p>
+        <!-- <p>{{ text }}</p> -->
+        <p v-for="(paragraph, index) in text" :key="index">{{ paragraph }}</p>
       </div>
     </div>
   </template>
