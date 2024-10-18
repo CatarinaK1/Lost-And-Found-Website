@@ -58,8 +58,8 @@
 .image-background {
   position: absolute;
   top: -30px; /* Adjust to move it slightly up */
-  right: -30px; /* Adjust to move it slightly left */
-  width: 80%;
+  right: -20px; /* Adjust to move it slightly left */
+  width: 70%;
   height: 100%;
   background-color: #ffff; /* Background color for the box */
   z-index: 1; /* Box goes below the image */
