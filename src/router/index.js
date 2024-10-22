@@ -56,7 +56,12 @@ const routes = [
   {
     path: '/review',
     name: 'Add review',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/AddReviewView.vue'),
+    component: () => import(/* webpackChunkName: "review" */ '@/views/AddReviewView.vue'),
+  },
+  {
+    path: '/report',
+    name: 'Report item',
+    component: () => import(/* webpackChunkName: "report" */ '@/views/ReportItemView.vue'),
   },
 ];
 

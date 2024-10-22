@@ -249,56 +249,88 @@
       "id": "1",
       "name": "Black wallet",
       "category": "Wallet",
+      "description": "description",
       "found_date": "2024-10-01",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 1,
       "photo": "https://i.ebayimg.com/00/s/MTU1OFgxNjAw/z/IDsAAOSw2XZf28Sa/$_57.JPG?set_id=8800005007"
     },
     {
       "id": "2",
       "name": "Brown wallet",
       "category": "Wallet",
+      "description": "description",
       "found_date": "2024-09-27",
+      "found_place": "Hauptbahnhof",
+      "office": "Donaustadt",
+      "user_id": 2,
       "photo": "https://www.wildhorn.in/cdn/shop/products/NPH012_BRN_TN1_800x.jpg?v=1703661487"
     },
     {
       "id": "3",
       "name": "Black umbrella",
       "category": "Umbrella",
+      "description": "description",
       "found_date": "2024-08-28",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 1,
       "photo": "https://www.cheaney.co.uk/images/cheaney-solid-hickory-stick-umbrella-in-black-p1653-11083_zoom.jpg"
     },
     {
       "id": "4",
       "name": "Baseball hat",
       "category": "Hat",
+      "description": "description",
       "found_date": "2024-09-31",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 4,
       "photo": "https://i5.walmartimages.com/seo/Balec-Plain-Baseball-Cap-Hat-Adjustable-Back-Orange_b1a8fe06-623f-46d1-a62d-1aaa9768312d.920e7a4fa07d3f68386c0add0154a9c1.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
     },
     {
       "id": "5",
       "name": "Grey backpack",
       "category": "Backpack",
+      "description": "description",
       "found_date": "2024-05-20",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 2,
       "photo": "https://solo-ny.com/cdn/shop/files/UBN795-10_HO_c4f17d2f-425f-4fa9-98c1-dc3f06b1933a.jpg?v=1695141176&width=1080"
     },
     {
       "id": "6",
       "name": "Summer hat",
       "category": "Hat",
+      "description": "description",
       "found_date": "2024-06-09",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 3,
       "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1CL2uOHi66KcT8xROqCsnaKVeiZHceN9Knw&s"
     },
     {
       "id": "7",
       "name": "Blue dockuments folder",
       "category": "Documents",
+      "description": "description",
       "found_date": "2024-09-25",
-      "photo": "https://www.leitz.com/azure/catalogfiles/products/Desktop__168B68D03872DF6A581754DCD141E778__300__300__ll_46330051-b369e247baffc9158d5b8c7c358f30df.png"
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 1,
+      "photo": "https://atakto.pl/media/catalog/product/cache/400x400/i/m/image_975_4_5637571629.jpg"
     },
     {
       "id": "8",
       "name": "School backpack",
       "category": "Backpack",
+      "description": "description",
       "found_date": "2024-10-10",
+      "found_place": "Central Park",
+      "office": "Simmering",
+      "user_id": 5,
       "photo": "https://schneiders-bags.com/cdn/shop/files/fame-girls-kolibri-von-walker-min.jpg?v=1700123757"
     }
   ],

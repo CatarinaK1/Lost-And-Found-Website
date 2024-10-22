@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/space-grotesk": "^5.1.0",
     "axios": "^1.7.7",
+    "flowbite": "^2.5.2",
     "json-server": "^1.0.0-beta.3",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5"
