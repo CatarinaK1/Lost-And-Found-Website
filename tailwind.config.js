@@ -3,6 +3,9 @@ module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
+      borderRadius: {
+        'top-3xl': '24px 24px 0 0',
+      },
       fontFamily: {
         'space-grotesk': ['"Space Grotesk"', 'sans-serif'],
       },

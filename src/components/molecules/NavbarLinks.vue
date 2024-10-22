@@ -31,6 +31,11 @@ const isActiveLink = (routePath) =>{
             >Our offices</RouterLink
         >
         <RouterLink
+            to="/faq"
+            :class="[isActiveLink('/faq') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
+            >FAQ</RouterLink
+        >
+        <RouterLink
             to="/found"
             :class="[isActiveLink('/found') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
             >Found items</RouterLink

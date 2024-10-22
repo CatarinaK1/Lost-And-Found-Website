@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, onMounted } from 'vue';
 import location from '@/assets/images/location_black.png'
 import phone from '@/assets/images/phone_black.png'
 import district from '@/assets/images/district.png'
@@ -7,6 +7,7 @@ import district from '@/assets/images/district.png'
 const props = defineProps({
     office: Object
 })
+
 </script>
 
 

@@ -63,6 +63,26 @@ const routes = [
     name: 'Report item',
     component: () => import(/* webpackChunkName: "report" */ '@/views/ReportItemView.vue'),
   },
+  {
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/FAQView.vue'),
+  },
+  {
+    path: '/ask',
+    name: 'Ask a question',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/AskQuestionView.vue'),
+  },
+  {
+    path: '/rules',
+    name: 'Rules of our service',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/RulesView.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/NotFoundView.vue')
+  }
 ];
 
 const router = createRouter({

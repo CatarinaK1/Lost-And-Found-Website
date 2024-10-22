@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Change the background globally */
+body {
+    background-color: #f3f3f3;
+  }
