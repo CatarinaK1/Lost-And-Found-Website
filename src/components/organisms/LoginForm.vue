@@ -12,7 +12,7 @@
           placeholder="Enter your username" required
         />
       </div>
-      <div v-if="isError" class="flex items-center">
+      <div v-if="isErrorUser" class="flex items-center">
         <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
         <p class="text-red-500 text-xs">Invalid username</p>
       </div>
@@ -30,7 +30,7 @@
       </div>
       <div v-if="isError" class="flex items-center">
         <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-        <p class="text-red-500 text-xs">Invalid username</p>
+        <p class="text-red-500 text-xs">Invalid password</p>
       </div>
       <button type="submit" @click.prevent="handleSubmit" class="bg-my-green text-my-white py-2 mt-4 rounded w-full hover:bg-gray-900 hover:text-white transition duration-300">Login</button>
     </form>
@@ -47,6 +47,7 @@ const emit = defineEmits(['login']);
 const username = ref('');
 const password = ref('');
 const isError = ref(false);
+const isErrorUser = ref(false);
 
 const handleSubmit = async () => {
   try{
@@ -54,10 +55,16 @@ const handleSubmit = async () => {
       const user = response.data
 
       if (user.length > 0) {
-        if (user[0].username === username.value) {
+        if (user[0].username === username.value && user[0].password === password.value) {
           emit('login', user[0].username);
         } else {
-          isError.value = true;
+          if(user[0].username !== username.value){
+            isErrorUser.value=true
+          }
+          else{
+            isError.value = true;
+          }
+          
         }
       } else {
         isError.value = true;
