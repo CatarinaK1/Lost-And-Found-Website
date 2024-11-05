@@ -2,6 +2,20 @@
     <div class="flex items-center justify-center bg-gray-100 ">
       <form @submit.prevent="handleSubmit" class="bg-my-white pb-6 rounded shadow-md w-80 px-10">
         <div class="mb-2 mt-3">
+          <label for="salutation" class="block text-my-gray text-xs">Choose a salutation</label>
+          <select id="salutation" name="salutation" v-model="salutation" placeholder="Choose salutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+            <option value="miss">Ms</option>
+            <option value="mrs">Mrs</option>
+            <option value="mr">Mr</option>
+            <option value="other">Other</option>
+            <option value="not_set">I prefer not to answer</option>
+          </select>
+        </div>
+        <div v-if="salutation == 'other'">
+          <label for="personalizedSalutation" class="block text-my-gray text-xs">Please specify:</label>
+          <input placeholder="Specify the salutation" id="personalizedSalutation" name="personalizedSalutation" v-model="personalizedSalutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+        </div>
+        <div class="mb-3 mt-3">
           <label for="name" class="block text-my-gray text-xs">Name</label>
           <input
             type="text"
@@ -60,12 +74,17 @@
           <label for="password" class="block text-my-gray text-xs">Password</label>
           <input
             type="password"
+            @input="validatePasswordLength"
             id="password"
             v-model="password"
-            v-bind:class="{'border-red-500': errorPassword}"
+            v-bind:class="{'border-red-500': errorPassword || errorPasswordLength}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
             placeholder="Enter your password" required
           />
+        </div>
+        <div v-if="errorPasswordLength" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">Password should contain between 8 and 12 characters</p>
         </div>
         <div class="mt-3 mb-2">
           <label for="repeat_password" class="block text-my-gray text-xs">Repeat Password</label>
@@ -91,6 +110,8 @@
             class="block text-my-gray text-xs hover:text-blue-700 text-decoration: underline;"
           >rules</RouterLink>
         </div>
+        <ErrorModal :isOpen="isModalOpen" :message="modalError" @close="closeModal" />
+      
         <button type="submit" class="bg-my-green text-my-white py-2 mt-4 rounded w-full hover:bg-gray-900 hover:text-white transition duration-300">Register</button>
       </form>
     </div>
@@ -100,9 +121,22 @@
   import { ref, defineEmits } from 'vue';
   import axios from 'axios';
   import mark from '@/assets/images/exc_mark.png';
+  import { useToast } from 'vue-toastification';
+  import ErrorModal from '@/components/molecules/ErrorModal.vue';
+
+const isModalOpen = ref(false); 
+const modalError = ref(''); 
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  modalError.value = '';
+}
+  
+  const toast = useToast();
   
   const emit = defineEmits(['register']);
-  
+
+  const salutation = ref('');  
   const username = ref('');
   const name = ref('');
   const surname = ref('');
@@ -113,10 +147,19 @@
   const ismailError = ref(false);
   const usernameFailed = ref(false);
   const mailFailed = ref(false);
+  const personalizedSalutation = ref();
+  const errorPasswordLength = ref(false);
   
+
+
+
   const validatemail = () => {
     const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     ismailError.value = !mailRegex.test(mail.value);
+  };
+
+  const validatePasswordLength = () => {
+    errorPasswordLength.value = (password.value.length > 12 || password.value.length < 8);
   };
   
   const validatePassword = () => {
@@ -125,30 +168,31 @@
   
   const handleSubmit = async () => {
     try {
-      const userResponse = await axios.get(`/api/users?username=${username.value}`);
-      const user = userResponse.data;
-  
-      const mailResponse = await axios.get(`/api/users?mail=${mail.value}`);
-      const userMail = mailResponse.data;
-  
-      usernameFailed.value = user.length > 0;
-      mailFailed.value = userMail.length > 0;
-  
-      if (!usernameFailed.value && !mailFailed.value) {
-        const newUser = {
+      const newUser = {
           name: name.value,
           surname: surname.value,
           username: username.value,
           mail: mail.value,
-          password: password.value,
-        };
-  
-        await axios.post('/api/users', newUser);
-        emit('register');
+          password: password.value
       }
-    } catch (error) {
-      console.error('Error registering user:', error);
+        await axios.post('/api/auth/register', newUser);
+        toast.success('Successfully registered');
+        emit('register');
+      
+    }  catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        modalError.value = error.response.data || 'An error occurred';
+      } else if (error.request) {
+        modalError.value = 'Server does not respond.';
+      } else {
+        modalError.value = `Error: ${error.message}`;
+      }
+    } else {
+      modalError.value = `Error: ${error.message}`;
     }
+    isModalOpen.value = true;
+  }
   };
   </script>
   

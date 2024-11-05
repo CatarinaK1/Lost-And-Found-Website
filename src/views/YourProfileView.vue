@@ -8,10 +8,6 @@ import { useRouter } from 'vue-router';
 const emit = defineEmits(['logout']);
 const router = useRouter(); 
 
-const props = defineProps({
-  logged: String
-});
-
 const userDetails = ref(null);
 
 const handleLogout = () => {
@@ -21,10 +17,14 @@ const handleLogout = () => {
 
 onMounted(async () => {
   try {
-    if(props.logged !== ""){
-    const response = await axios.get(`/api/users?username=${props.logged}`);
-    if (response.data && response.data.length > 0) {
-      userDetails.value = response.data[0];
+    if(localStorage.getItem('token')){
+    const response = await axios.get("/api/user", {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+    });
+    if (response.data) {
+      userDetails.value = response.data;
     } else {
       console.error('No user found');
     }}

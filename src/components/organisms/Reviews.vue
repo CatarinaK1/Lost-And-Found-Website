@@ -40,7 +40,7 @@ const nextPage = () => {
 };
 
 const props = defineProps({
-    logged: String
+    logged: Boolean
 });
 
 

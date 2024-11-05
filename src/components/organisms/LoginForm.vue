@@ -32,6 +32,7 @@
         <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
         <p class="text-red-500 text-xs">Invalid password</p>
       </div>
+      <ErrorModal :isOpen="isModalOpen" :message="modalError" @close="closeModal" />
       <button type="submit" @click.prevent="handleSubmit" class="bg-my-green text-my-white py-2 mt-4 rounded w-full hover:bg-gray-900 hover:text-white transition duration-300">Login</button>
     </form>
   </div>
@@ -41,6 +42,18 @@
 import { ref, defineEmits } from 'vue';
 import axios from 'axios';
 import mark from '@/assets/images/exc_mark.png';
+import { useToast } from 'vue-toastification';
+import ErrorModal from '@/components/molecules/ErrorModal.vue';
+
+const isModalOpen = ref(false); 
+const modalError = ref(''); 
+  
+const toast = useToast();
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  modalError.value = '';
+}
 
 const emit = defineEmits(['login']);
 
@@ -50,26 +63,31 @@ const isError = ref(false);
 const isErrorUser = ref(false);
 
 const handleSubmit = async () => {
-  try{
-      const response = await axios.get(`/api/users?username=${username.value}`);
-      const user = response.data
-
-      if (user.length > 0) {
-        if (user[0].username === username.value && user[0].password === password.value) {
-          emit('login', user[0].username);
-        } else {
-          if(user[0].username !== username.value){
-            isErrorUser.value=true
-          }
-          else{
-            isError.value = true;
-          }
-          
-        }
-      } else {
-        isError.value = true;
-      }}catch(error){
-        console.error('Error fetching jobs',error);
+  try {
+      const newLogin = {
+          username: username.value,
+          password: password.value 
       }
+      const response =  await axios.post('/api/auth/login', newLogin);
+
+      toast.success('Successfully logged in.')
+      const token = response.data.accessToken;
+      localStorage.setItem('token', token)
+      emit("login");
+      
+    }  catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        modalError.value = error.response.data || 'An error occurred';
+      } else if (error.request) {
+        modalError.value = 'Server does not respond.';
+      } else {
+        modalError.value = `Error: ${error.message}`;
+      }
+    } else {
+      modalError.value = `Error: ${error.message}`;
+    }
+    isModalOpen.value = true;
+  }
 };
 </script>

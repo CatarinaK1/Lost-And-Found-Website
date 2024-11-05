@@ -16,7 +16,7 @@ const props = defineProps({
   <div class="flex flex-col">
     <div class="flex flex-col rounded-lg justify-center items-center bg-my-green mt-4 mb-4 px-4">
       <div class="text-my-white font-bold text-2xl text-center mt-6 mb-6">
-        {{ props.office.name }}
+        {{ props.office.district.name }}
       </div>
       <div class="w-full h-1 bg-my-white mb-2"></div>
       <div class="flex flex-col bg-my-green mb-4 mt-4 rounded-xl">
@@ -26,7 +26,7 @@ const props = defineProps({
         <div class="bg-my-white rounded-xl mb-2 p-2 flex flex-col justify-center items-center">
           <div class="flex items-center mt-2 mb-1">
             <img class="max-h-5 h-auto w-auto mr-2" :src="district" alt="district" />
-            <p class="text-my-gray font-bold text-base">{{ props.office.district }}. {{ props.office.name }}</p>
+            <p class="text-my-gray font-bold text-base">{{ props.office.district.id }}. {{ props.office.district.name }}</p>
           </div>
           <div class="flex items-center mt-1 mb-1">
             <img class="max-h-5 h-auto w-auto mr-2" :src="location" alt="location" />
@@ -47,8 +47,5 @@ const props = defineProps({
     </div>
   </div>
 </div>
-<div v-else class="text-my-green font-bold text-2xl text-center mb-6">
-        <p>Page not found</p>
-    </div>
 
 </template>

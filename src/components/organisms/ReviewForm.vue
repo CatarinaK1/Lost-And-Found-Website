@@ -45,11 +45,14 @@
     try {
       if (errorBody.value === false) {
         const newReview = {
-          username:props.logged,
           opinion: body.value
         };
   
-        await axios.post('/api/reviews', newReview);
+        await axios.post('/api/reviews', newReview, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+    });
         emit('addedReview');
         console.log(newReview)
       }
@@ -58,9 +61,6 @@
     }
   };
 
-const props = defineProps({
-    logged: String
-});
   </script>
   
   

@@ -3,7 +3,7 @@ import Reviews from '@/components/organisms/Reviews.vue';
 
 
 const props = defineProps({
-    logged: String
+    logged: Boolean
 });
 </script>
 

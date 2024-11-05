@@ -1,10 +1,11 @@
 <script setup>
-import {useRoute} from 'vue-router';
+import {useRouter, useRoute} from 'vue-router';
 import {ref, onMounted} from 'vue';
 import axios from 'axios'
 import OfficeInfo from '../components/organisms/OfficeInfo.vue';
 
-const route = useRoute()
+const route = useRoute();
+const router = useRouter();
 const officeId = route.params.id;
 
 const office = ref(null);
@@ -12,11 +13,12 @@ const office = ref(null);
 
 onMounted(async () => {
     try{
-        const response = await axios.get(`/api/offices?id=${officeId}`);
-        console.log(officeId);
-        office.value = response.data[0]
+        const response = await axios.get(`/api/offices/${officeId}`);
+        office.value = response.data
     }catch(error){
-        console.error('Error fetching jobs',error);
+        if(error.response.status === 404){
+            router.push('/error')
+        }
     }
 })
 

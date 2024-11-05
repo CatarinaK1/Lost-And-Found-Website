@@ -16,7 +16,7 @@
   import { defineProps } from 'vue';
 
   const props = defineProps({
-    logged: String
+    logged: Boolean
   });
   </script>
   

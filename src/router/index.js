@@ -79,6 +79,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '@/views/RulesView.vue'),
   },
   {
+    path: '/offices/add',
+    name: 'Add office',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/AdminAddOfficeView.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import(/* webpackChunkName: "login" */ '@/views/NotFoundView.vue')

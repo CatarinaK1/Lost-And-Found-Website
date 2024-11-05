@@ -8,7 +8,7 @@ import { RouterLink } from 'vue-router';
 
 
 defineProps({
-    logged: String
+    logged: Boolean
 });
 
 

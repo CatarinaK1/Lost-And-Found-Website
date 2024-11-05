@@ -1,14 +1,19 @@
 <script setup>
 import OfficeCard from '@/components/molecules/OfficeCard.vue';
 
-import {ref, onMounted,computed} from 'vue';
+import {ref, onMounted,computed, onUpdated} from 'vue';
 import axios from 'axios';
+
+
+const props = defineProps({
+    admin : Boolean
+})
 
 const offices = ref([]);
 const selectedDistrict = ref("");
 
 const districts = computed(() => {
-  const allDistricts = offices.value.map(office => office.district);
+  const allDistricts = offices.value.map(office => office.district.name);
   const uniqueDistricts = [...new Set(allDistricts)];
 
   return uniqueDistricts.sort((a, b) => Number(a) - Number(b));
@@ -18,10 +23,20 @@ const filteredOffices = computed(() => {
     if (!selectedDistrict.value) {
         return offices.value;
     }
-    return offices.value.filter(office => office.district === selectedDistrict.value);
+    return offices.value.filter(office => office.district.name === selectedDistrict.value);
 });
 
 onMounted(async () => {
+    try{
+        const response = await axios.get('/api/offices');
+        offices.value = response.data
+    }catch(error){
+        console.error('Error fetching jobs',error);
+    }
+})
+
+
+onUpdated(async () => {
     try{
         const response = await axios.get('/api/offices');
         offices.value = response.data
@@ -45,7 +60,7 @@ onMounted(async () => {
     <section class="bg-my-white px-8 py-10">
         <div class="m-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office"/>
+                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office" :admin="props.admin"/>
             </div>
     </div>
 

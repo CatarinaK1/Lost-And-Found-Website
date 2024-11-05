@@ -7,7 +7,7 @@ const emit = defineEmits(['addedReview']);
 const router = useRouter(); 
 
 const props = defineProps({
-    logged: String
+    logged: Boolean
 });
 
 const handleAddedReview = () => {
@@ -22,7 +22,7 @@ const handleAddedReview = () => {
         <div class="login-caption text-my-gray text-2xl text-center mb-4">
           Add Review
         </div>
-        <ReviewForm :logged="props.logged"  @addedReview="handleAddedReview"/>
+        <ReviewForm  @addedReview="handleAddedReview"/>
       </div>
     </div>
 </template>

@@ -7,8 +7,8 @@ import RegisterButton from '@/components/molecules/RegisterButton.vue'
 const emit = defineEmits(['login']);
 const router = useRouter(); 
 
-const handleLogin = (username) => {
-  emit('login', username);
+const handleLogin = () => {
+  emit('login');
   router.push('/profile')
 };
 </script>
