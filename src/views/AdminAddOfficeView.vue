@@ -11,7 +11,7 @@ const props = defineProps({
 
 onMounted(() =>{
     if(!props.admin){
-        router.push('/error');
+        router.push('/unauthorized');
     }
 }
 )
