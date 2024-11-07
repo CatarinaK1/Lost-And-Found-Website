@@ -13,7 +13,17 @@
         </div>
         <div v-if="salutation == 'other'">
           <label for="personalizedSalutation" class="block text-my-gray text-xs">Please specify:</label>
-          <input placeholder="Specify the salutation" id="personalizedSalutation" name="personalizedSalutation" v-model="personalizedSalutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+          <input placeholder="Specify the salutation" 
+                  id="personalizedSalutation" 
+                  name="personalizedSalutation" 
+                  v-model="personalizedSalutation"
+                  @input="validateSalutation"
+                  v-bind:class="{'border-red-500': issalutationerror}"  
+                  class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+        </div>
+        <div v-if="issalutationerror" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">Salutation should not be longer than 30 signs</p>
         </div>
         <div class="mb-3 mt-3">
           <label for="name" class="block text-my-gray text-xs">Name</label>
@@ -77,7 +87,7 @@
             @input="validatePasswordLength"
             id="password"
             v-model="password"
-            v-bind:class="{'border-red-500': errorPassword || errorPasswordLength}"
+            v-bind:class="{'border-red-500': errorPassword || errorPasswordLength || errorPasswordSigns}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
             placeholder="Enter your password" required
           />
@@ -85,6 +95,10 @@
         <div v-if="errorPasswordLength" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
           <p class="text-red-500 text-xs">Password should contain between 8 and 12 characters</p>
+        </div>
+        <div v-if="errorPasswordSigns" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">Password should contain at least one special sign and capital letter</p>
         </div>
         <div class="mt-3 mb-2">
           <label for="repeat_password" class="block text-my-gray text-xs">Repeat Password</label>
@@ -102,6 +116,16 @@
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
           <p class="text-red-500 text-xs">Passwords should match</p>
         </div>
+        <div class="mt-3 mb-2">
+          <label for="search" class="block text-my-gray text-xs">Search Country</label>
+          <input v-model="search" @input="handleInput" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
+          <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+              <li v-on:click="setSearch(item.name.common)" v-for="item in data" :key="item.name" class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="mt-4 mb-3 flex items-center">
           <input type="checkbox" id="consent" name="consent" value="Consent" required>
           <label for="consent" class="block text-my-gray text-xs flex items-center mr-1 ml-2"> I have read and understood the </label>
@@ -110,15 +134,16 @@
             class="block text-my-gray text-xs hover:text-blue-700 text-decoration: underline;"
           >rules</RouterLink>
         </div>
+
         <ErrorModal :isOpen="isModalOpen" :message="modalError" @close="closeModal" />
-      
+        
         <button type="submit" class="bg-my-green text-my-white py-2 mt-4 rounded w-full hover:bg-gray-900 hover:text-white transition duration-300">Register</button>
       </form>
     </div>
   </template>
   
   <script setup>
-  import { ref, defineEmits } from 'vue';
+  import { ref, defineEmits, onMounted, computed} from 'vue';
   import axios from 'axios';
   import mark from '@/assets/images/exc_mark.png';
   import { useToast } from 'vue-toastification';
@@ -131,11 +156,36 @@ const closeModal = () => {
   isModalOpen.value = false;
   modalError.value = '';
 }
-  
+
+const search = ref(null);
+const initial_data = ref([])
+const data = computed(() => {
+  if (selectedCountry.value) return [];
+
+  if (search.value) {
+    return initial_data.value.filter(country =>
+      country.name.common.toLowerCase().includes(search.value.toLowerCase())
+    );
+  } else {
+    return [];
+  }
+});
+
+
+const setSearch = (value) =>{
+  search.value = value;
+  selectedCountry.value = value;
+}
+
+
+const handleInput = () => {
+  selectedCountry.value = null;
+};
   const toast = useToast();
   
   const emit = defineEmits(['register']);
 
+  const selectedCountry = ref('')
   const salutation = ref('');  
   const username = ref('');
   const name = ref('');
@@ -145,11 +195,22 @@ const closeModal = () => {
   const repeat_password = ref('');
   const errorPassword = ref(false);
   const ismailError = ref(false);
+  const issalutationerror = ref(false)
   const usernameFailed = ref(false);
   const mailFailed = ref(false);
-  const personalizedSalutation = ref();
+  const personalizedSalutation = ref('');
   const errorPasswordLength = ref(false);
+  const errorPasswordSigns = ref(false);
   
+  onMounted(async () => {
+  try {
+    const res = await axios.get(`https://restcountries.com/v3.1/all`);
+    initial_data.value = res.data; 
+  } catch (err) {
+    error.value = 'Error! Could not reach the API. ' + err;
+    console.log(error.value);
+  }
+});
 
 
 
@@ -158,22 +219,39 @@ const closeModal = () => {
     ismailError.value = !mailRegex.test(mail.value);
   };
 
+  const validateSalutation = () => {
+    issalutationerror.value = personalizedSalutation.value.length > 30;
+  };
+
   const validatePasswordLength = () => {
+    validatePasswordSigns();
     errorPasswordLength.value = (password.value.length > 12 || password.value.length < 8);
   };
+
+  const validatePasswordSigns = () => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/;
+    errorPasswordSigns.value = !regex.test(password.value);
+  }
   
   const validatePassword = () => {
     errorPassword.value = password.value !== repeat_password.value;
   };
   
   const handleSubmit = async () => {
-    try {
+    if(ismailError.value || issalutationerror.value || errorPassword.value || errorPasswordSigns.value || usernameFailed.value || mailFailed.value || errorPasswordLength.value){
+      modalError.value = "Provide valid data"
+      isModalOpen.value = true;
+    }
+    else{
+      try {
       const newUser = {
           name: name.value,
           surname: surname.value,
           username: username.value,
           mail: mail.value,
-          password: password.value
+          password: password.value,
+          salutation: personalizedSalutation.value || salutation.value,
+          country: selectedCountry.value
       }
         await axios.post('/api/auth/register', newUser);
         toast.success('Successfully registered');
@@ -193,6 +271,8 @@ const closeModal = () => {
     }
     isModalOpen.value = true;
   }
+    }
+    
   };
   </script>
   
