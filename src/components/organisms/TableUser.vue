@@ -78,7 +78,7 @@ const uploadPhoto = async (event) => {
       <div class="bg-my-green text-my-white p-6 rounded-lg shadow-md w-auto">
         <div class="flex justify-center items-center">
           <div v-if="userDetailsFull.photo" class="flex flex-col justify-center items-center py-2">
-            <img v-if="userDetailsFull.photo" :src="'data:image/jpeg;base64,' + userDetailsFull.photo" alt="Image" class="w-32 h-32 rounded-sm mb-4 object-cover" />
+            <img v-if="userDetailsFull.photo" :src="'data:image/jpeg;base64,' + userDetailsFull.photo" alt="Image" class="w-32 h-32 rounded-full mb-4 object-cover" />
             <button @click="handleSubmitPhoto" class="bg-my-white text-my-green text-sm font-bold rounded-lg shadow-md p-2 hover:bg-gray-900 hover:text-white transition duration-300">Change your photo</button>
             <input id="photoInput" type="file" class="hidden" @change="uploadPhoto" accept="image/*" />
           
