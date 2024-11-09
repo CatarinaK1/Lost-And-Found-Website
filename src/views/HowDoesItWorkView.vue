@@ -107,6 +107,7 @@ p{
 
 
 <template>
+  
   <div class="page-title">
     <h1>How Does it Work?</h1>
     <p >Check below what you should do if...</p>
