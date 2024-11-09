@@ -40,7 +40,7 @@ To run this project locally:
 
 5. Run the server:
     ```bash
-    npm run dev
+    npm run server
     ```
    
 This project represents a practical application of web development skills.
