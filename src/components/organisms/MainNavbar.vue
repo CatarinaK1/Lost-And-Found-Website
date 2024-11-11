@@ -4,13 +4,9 @@ import NavbarLinks from '@/components/molecules/NavbarLinks.vue';
 import LoginButton from '@/components/molecules/LoginButton.vue';
 import YourProfileButton from '@/components/molecules/YourProfileButton.vue';
 import { RouterLink } from 'vue-router';
+import { useAuthStore } from '../../stores/AuthStore';
 
-
-
-defineProps({
-    logged: Boolean
-});
-
+const authStore = useAuthStore();
 
 
 </script>
@@ -25,7 +21,7 @@ defineProps({
           </RouterLink>
           <div class="flex items-center space-x-4 md:ml-auto">
           <NavbarLinks />
-          <div v-if="logged">
+          <div v-if="authStore.getUser">
               <YourProfileButton/>
             </div>
             <div v-else>

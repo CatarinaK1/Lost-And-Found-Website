@@ -4,7 +4,7 @@ import AddOpinionButton from '@/components/molecules/AddOpinionButton.vue'
 import left from '@/assets/images/left.png';
 import right from '@/assets/images/right.png';
 
-import {ref, onMounted,computed, defineProps} from 'vue';
+import {ref, onMounted,computed } from 'vue';
 import axios from 'axios';
 
 const reviews = ref([]);
@@ -39,10 +39,6 @@ const nextPage = () => {
   }
 };
 
-const props = defineProps({
-    logged: Boolean
-});
-
 
 </script>
 <template>
@@ -68,6 +64,6 @@ const props = defineProps({
       </div>
     </section>
     <div class="flex justify-center items-center">
-      <AddOpinionButton :logged="props.logged"/>            
+      <AddOpinionButton/>            
     </div>
 </template>

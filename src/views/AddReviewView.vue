@@ -1,18 +1,5 @@
 <script setup>
 import ReviewForm from '@/components/organisms/ReviewForm.vue';
-import { defineEmits, defineProps } from 'vue';
-import { useRouter } from 'vue-router';
-
-const emit = defineEmits(['addedReview']);
-const router = useRouter(); 
-
-const props = defineProps({
-    logged: Boolean
-});
-
-const handleAddedReview = () => {
-  router.push('/')
-};
 
 </script>
 
@@ -22,7 +9,7 @@ const handleAddedReview = () => {
         <div class="login-caption text-my-gray text-2xl text-center mb-4">
           Add Review
         </div>
-        <ReviewForm  @addedReview="handleAddedReview"/>
+        <ReviewForm/>
       </div>
     </div>
 </template>

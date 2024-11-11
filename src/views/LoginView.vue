@@ -1,16 +1,8 @@
 <script setup>
 import LoginForm from '@/components/organisms/LoginForm.vue';
-import { defineEmits } from 'vue';
-import { useRouter } from 'vue-router';
 import RegisterButton from '@/components/molecules/RegisterButton.vue'
 
-const emit = defineEmits(['login']);
-const router = useRouter(); 
 
-const handleLogin = () => {
-  emit('login');
-  router.push('/profile')
-};
 </script>
 
 <template>
@@ -19,7 +11,7 @@ const handleLogin = () => {
         <div class="login-caption text-my-gray text-2xl text-center mb-6">
           Log in to our service
         </div>
-        <LoginForm @login="handleLogin" />
+        <LoginForm />
         <div class="register-big-caption text-my-gray text-xl text-center mt-6 mb-3">
           You don't have the account yet?
         </div>

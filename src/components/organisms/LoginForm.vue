@@ -39,12 +39,17 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
 import mark from '@/assets/images/exc_mark.png';
 import { useToast } from 'vue-toastification';
 import ErrorModal from '@/components/molecules/ErrorModal.vue';
+import { useAuthStore } from '@/stores/authStore';
+import * as jwtDecode from 'jwt-decode';
+import { useRouter } from 'vue-router';
 
+const authStore = useAuthStore();
+const router = useRouter(); 
 const isModalOpen = ref(false); 
 const modalError = ref(''); 
   
@@ -55,7 +60,6 @@ const closeModal = () => {
   modalError.value = '';
 }
 
-const emit = defineEmits(['login']);
 
 const username = ref('');
 const password = ref('');
@@ -73,7 +77,18 @@ const handleSubmit = async () => {
       toast.success('Successfully logged in.')
       const token = response.data.accessToken;
       localStorage.setItem('token', token)
-      emit("login");
+      authStore.setUser(username);
+
+      const decodedToken = jwtDecode.jwtDecode(token);
+      const roles = decodedToken.roles || [];
+      if(roles.includes('ADMIN')){
+        authStore.setRole('ADMIN');
+      }else{
+        authStore.setRole('USER');
+      };
+
+
+      router.push('/profile');
       
     }  catch (error) {
     if (axios.isAxiosError(error)) {

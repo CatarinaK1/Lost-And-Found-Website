@@ -27,7 +27,9 @@
   import { ref, defineEmits } from 'vue';
   import axios from 'axios';
   import mark from '@/assets/images/exc_mark.png'
+  import { useRouter } from 'vue-router';
   
+  const router = useRouter();
   const emit = defineEmits(['addedReview']);
   const body = ref("")
   const errorBody = ref(false);
@@ -53,8 +55,7 @@
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }
     });
-        emit('addedReview');
-        console.log(newReview)
+        router.push('/');
       }
     } catch (error) {
       console.error('Error adding review:', error);

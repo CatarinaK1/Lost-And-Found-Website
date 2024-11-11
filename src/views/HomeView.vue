@@ -7,9 +7,6 @@ import sadImage from '@/assets/images/sad-man.png';
 import happyImage from '@/assets/images/happy-man.jpeg';
 
 
-const props = defineProps({
-    logged: Boolean
-});
 </script>
 
 
@@ -43,7 +40,7 @@ const props = defineProps({
         <div class="text-my-white font-bold text-2xl text-center mb-4">
           Discover how we helped others reclaim their lost items
         </div>
-        <Reviews :logged="props.logged"/>
+        <Reviews/>
       </div>
       </div>
     </div>

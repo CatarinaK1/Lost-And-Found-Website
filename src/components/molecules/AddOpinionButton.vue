@@ -1,5 +1,5 @@
 <template>
-    <RouterLink v-if="props.logged" to="/review">
+    <RouterLink v-if="authStore.getUser" to="/review">
       <button class="bg-my-white text-my-green font-bold text-sm px-3 py-2 rounded hover:bg-gray-900 hover:text-my-white transition duration-300">
         Add review
       </button>
@@ -13,10 +13,8 @@
   
   <script setup>
   import { RouterLink } from 'vue-router';
-  import { defineProps } from 'vue';
-
-  const props = defineProps({
-    logged: Boolean
-  });
+  import { useAuthStore } from '../../stores/AuthStore';
+ 
+  const authStore = useAuthStore();
   </script>
   

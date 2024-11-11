@@ -8,12 +8,17 @@
   
   <script setup>
   import { RouterLink } from 'vue-router';
-  import { defineEmits } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useAuthStore } from '../../stores/AuthStore';
 
-  const emit = defineEmits(['logout']);
+  const authStore = useAuthStore();
 
+  const router = useRouter();
   const handleLogout = () => {
-  emit('logout');
+    router.push('/');
+    localStorage.removeItem('token');
+    authStore.setRole(null);
+    authStore.setUser(null);
 };
   </script>
   

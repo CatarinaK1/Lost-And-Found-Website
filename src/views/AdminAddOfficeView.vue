@@ -2,15 +2,13 @@
 import AddOfficeForm from '@/components/organisms/AddOfficeForm.vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/AuthStore';
 
+const authStore = useAuthStore();
 const router = useRouter();
-const props = defineProps({
-    admin: Boolean
-})
-
 
 onMounted(() =>{
-    if(!props.admin){
+    if(!authStore.getRole == "ADMIN"){
         router.push('/unauthorized');
     }
 }

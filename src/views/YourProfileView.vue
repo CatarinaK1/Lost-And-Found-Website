@@ -5,14 +5,9 @@ import TableUser from '@/components/organisms/TableUser.vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 
-const emit = defineEmits(['logout']);
 const router = useRouter(); 
 
 const userDetails = ref(null);
-
-const handleLogout = () => {
-  emit('logout');
-};
 
 
 onMounted(async () => {
@@ -46,7 +41,7 @@ onMounted(async () => {
           </div>
           <TableUser :userDetail="userDetails" />
           <div class="flex justify-center items-center">
-            <LogOutButton @logout="handleLogout" />
+            <LogOutButton />
           </div>
         </div>
         <div v-else class="text-my-green text-2xl text-center mb-6">

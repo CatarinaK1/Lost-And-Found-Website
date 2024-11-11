@@ -5,10 +5,6 @@ import {ref, onMounted,computed, onUpdated} from 'vue';
 import axios from 'axios';
 
 
-const props = defineProps({
-    admin : Boolean
-})
-
 const offices = ref([]);
 const selectedDistrict = ref("");
 
@@ -60,7 +56,7 @@ onUpdated(async () => {
     <section class="bg-my-white px-8 py-10">
         <div class="m-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office" :admin="props.admin"/>
+                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office"/>
             </div>
     </div>
 

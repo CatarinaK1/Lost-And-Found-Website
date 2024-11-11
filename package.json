@@ -15,6 +15,7 @@
     "flowbite": "^2.5.2",
     "json-server": "^1.0.0-beta.3",
     "jwt-decode": "^4.0.0",
+    "pinia": "^2.2.6",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5",
     "vue-toast-notification": "^3.1.3",

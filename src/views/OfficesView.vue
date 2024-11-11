@@ -1,18 +1,13 @@
 <script setup>
 import OfficeCards from '@/components/organisms/OfficeCards.vue';
 import { RouterLink } from 'vue-router';
+import { useAuthStore } from '../stores/AuthStore';
 
-
-const props = defineProps({
-  "admin" : Boolean,
-  "logged" : Boolean
-})
-
-
+const authStore = useAuthStore();
 </script>
 
 <template>
-  <div v-if="props.admin" class="bg-my-white space-x-5 flex py-5 px-5 justify-end">
+  <div v-if="authStore.getRole === 'ADMIN'" class="bg-my-white space-x-5 flex py-5 px-5 justify-end">
     <RouterLink to="/offices/add">
       <button class="bg-my-green text-my-white font-bold text-sm px-3 py-2 rounded hover:bg-gray-900 hover:text-my-white transition duration-300">
         Add office
@@ -27,7 +22,7 @@ const props = defineProps({
       <div class="login-caption font-bold text-my-green text-base text-center mb-4">
         Check our locations all around Vienna
       </div>
-      <OfficeCards :admin="props.admin" />
+      <OfficeCards />
     </div>
   </div>
 </template>

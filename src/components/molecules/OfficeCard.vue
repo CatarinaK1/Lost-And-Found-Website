@@ -8,13 +8,13 @@ import location from '@/assets/images/location.png';
 import phone from '@/assets/images/phone.png';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
-  
+import { useAuthStore } from '../../stores/AuthStore';
 const toast = useToast();
 
+const authStore = useAuthStore();
 
 const props = defineProps({
     details: Object,
-    admin: Boolean,
 });
 
 const hover = ref(false)
@@ -33,7 +33,7 @@ const handleDelete = async (id) => {
 
 <template>
     <div class="bg-my-green rounded-xl shadow-md relative">
-            <div v-if="props.admin" class="mt-2 flex justify-end">
+            <div v-if="authStore.getRole === 'ADMIN'" class="mt-2 flex justify-end">
               <button @click="handleDelete(props.details.id)" @mouseover="hover = true" @mouseleave="hover = false">
                 <img class="max-h-5 h-auto w-auto mr-2" :src="hover ? minusw : minus">
               </button>
