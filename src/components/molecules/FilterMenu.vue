@@ -16,7 +16,14 @@ const endDate = ref('');
 const emit = defineEmits(['filter-changed']);
 
 watch([category, name, startDate, endDate], () => {
-  emit('filter-changed', { category: category.value, name: name.value, startDate: startDate.value, endDate: endDate.value });
+  const filterData = {
+    category: category.value,
+    name: name.value,
+    startDate: startDate.value ? new Date(startDate.value).toISOString().split('T')[0] : '',
+    endDate: endDate.value ? new Date(endDate.value).toISOString().split('T')[0] : ''
+  };
+
+  emit('filter-changed', filterData);
 });
 </script>
 

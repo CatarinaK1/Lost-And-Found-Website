@@ -44,7 +44,7 @@ import axios from 'axios';
 import mark from '@/assets/images/exc_mark.png';
 import { useToast } from 'vue-toastification';
 import ErrorModal from '@/components/molecules/ErrorModal.vue';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/AuthStore';
 import * as jwtDecode from 'jwt-decode';
 import { useRouter } from 'vue-router';
 

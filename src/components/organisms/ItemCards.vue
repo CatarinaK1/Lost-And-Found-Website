@@ -9,37 +9,43 @@ const filtered_items = ref([]);
 const filters = ref({ category: '', name: '', startDate: '', endDate: '' });
 const categoryOptions = ref([]);
 
-onMounted(async () => {
+const fetchItems = async () => {
   try {
     const response = await axios.get('/api/found_items');
     found_items.value = response.data;
-    filtered_items.value = found_items.value;
-
+    applyFilters();
 
     const categories = new Set(found_items.value.map(item => item.category));
     categoryOptions.value = Array.from(categories);
   } catch (error) {
     console.error('Error fetching items', error);
   }
-});
+};
+
+onMounted(fetchItems);
 
 const applyFilters = () => {
   filtered_items.value = found_items.value.filter((item) => {
     const matchesCategory = filters.value.category ? item.category === filters.value.category : true;
-
     const matchesName = filters.value.name ? item.name.includes(filters.value.name) : true;
-
-    const matchesStartDate = filters.value.startDate ? new Date(item.found_date) >= new Date(filters.value.startDate) : true;
-    const matchesEndDate = filters.value.endDate ? new Date(item.found_date) <= new Date(filters.value.endDate) : true;
+    const matchesStartDate = filters.value.startDate ? new Date(item.foundDate) >= new Date(filters.value.startDate) : true;
+    const matchesEndDate = filters.value.endDate ? new Date(item.foundDate) <= new Date(filters.value.endDate) : true;
 
     return matchesCategory && matchesName && matchesStartDate && matchesEndDate;
   });
 };
 
+
 const onFilterChanged = (newFilters) => {
   filters.value = newFilters;
   applyFilters();
 };
+
+
+const refreshAfterDelete = async () => {
+  await fetchItems();
+};
+
 </script>
 
 <template>
@@ -48,7 +54,7 @@ const onFilterChanged = (newFilters) => {
 
     <div class="m-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        <ItemCard v-for="item in filtered_items" :key="item.id" :details="item" />
+        <ItemCard v-for="item in filtered_items" :key="item.id" :details="item" @deleted="refreshAfterDelete" />
       </div>
     </div>
   </section>
