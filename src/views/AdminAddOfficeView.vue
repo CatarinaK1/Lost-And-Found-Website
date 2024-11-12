@@ -8,7 +8,7 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 onMounted(() =>{
-    if(!authStore.getRole == "ADMIN"){
+    if(!authStore.getRole == 'ADMIN'){
         router.push('/unauthorized');
     }
 }
