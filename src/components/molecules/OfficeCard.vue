@@ -1,6 +1,7 @@
 <script setup>
 import {defineProps, ref, computed, defineEmits} from 'vue';
 import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import minus from '@/assets/images/minusr.png'
 import minusw from '@/assets/images/minusw.png'
 
@@ -10,7 +11,7 @@ import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/AuthStore';
 const toast = useToast();
-
+const router = useRouter();
 const authStore = useAuthStore();
 
 const props = defineProps({
@@ -21,12 +22,16 @@ const hover = ref(false)
 
 const handleDelete = async (id) => {
     try {
-        const response = await axios.delete(`/api/offices/${id}`);
+        const response = await axios.delete(`/api/offices/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }})
         toast.success("Successfully deleted");
     } catch (error) {
       toast.error("Error while deleting");
       console.error('Error while deleting:', error.response ? error.response.data : error.message);
     }
+
 }
 
 </script>
