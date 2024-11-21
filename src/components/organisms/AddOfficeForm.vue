@@ -36,15 +36,12 @@ const handleSubmit = async () => {
           photo: photo.value,
           description: description.value
       }
-      console.log(selectedDistrict.value)
-      console.log(newOffice)
       await axios.post('/api/offices', newOffice, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }
       });
       toast.success('Successfully added office');
-      console.log(newOffice.photo);
       router.push('/offices');
     }  catch (error) {
       if (axios.isAxiosError(error)) {

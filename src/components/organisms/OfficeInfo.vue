@@ -21,7 +21,7 @@ const props = defineProps({
       <div class="w-full h-1 bg-my-white mb-2"></div>
       <div class="flex flex-col bg-my-green mb-4 mt-4 rounded-xl">
         <div class="image-container rounded-xl w-[80vh] h-[50vh] overflow-hidden relative mb-6">
-          <img :src="props.office.photo" alt="Office Photo" class="absolute inset-0 w-full h-full object-cover" />
+          <img :src="'data:image/jpeg;base64,' + props.office.photo" alt="Office Photo" class="absolute inset-0 w-full h-full object-cover" />
         </div>
         <div class="bg-my-white rounded-xl mb-2 p-2 flex flex-col justify-center items-center">
           <div class="flex items-center mt-2 mb-1">
