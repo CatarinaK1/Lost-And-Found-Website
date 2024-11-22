@@ -10,6 +10,10 @@ const isRegisteredUser = computed(() => {
   return authStore.getRole === 'USER' || authStore.getRole === 'ADMIN';
 });
 
+const isAdminUser = computed(() =>{
+  return authStore.getRole === 'ADMIN';
+})
+
 const isActiveLink = (routePath) => {
   const route = useRoute();
   return route.path === routePath;
@@ -45,6 +49,11 @@ const isActiveLink = (routePath) => {
           to="/report"
           :class="[isActiveLink('/report') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
         >Report item</RouterLink>
+        <RouterLink
+          v-if="isAdminUser"
+          to="/users/management"
+          :class="[isActiveLink('/users/management') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
+        >Manage Users</RouterLink>
       </div>
     </div>
   </div>

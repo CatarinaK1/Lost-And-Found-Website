@@ -20,7 +20,8 @@ const options = {
     draggable: true
 };
 
+
+app.use(createPinia());
 app.use(router);
 app.use(Toast,options);
-app.use(createPinia());
 app.mount('#app');
