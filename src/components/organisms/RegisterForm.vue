@@ -207,8 +207,8 @@ const handleInput = () => {
     const res = await axios.get(`https://restcountries.com/v3.1/all`);
     initial_data.value = res.data; 
   } catch (err) {
-    error.value = 'Error! Could not reach the API. ' + err;
-    console.log(error.value);
+    err.value = 'Error! Could not reach the API. ' + err;
+    console.log(err.value);
   }
 });
 
