@@ -69,6 +69,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '@/views/FAQView.vue'),
   },
   {
+    path: '/faq/management',
+    name: 'FAQ management',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/ManageFAQView.vue'),
+  },
+  {
     path: '/ask',
     name: 'Ask a question',
     component: () => import(/* webpackChunkName: "login" */ '@/views/AskQuestionView.vue'),

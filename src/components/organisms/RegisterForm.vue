@@ -117,14 +117,20 @@
           <p class="text-red-500 text-xs">Passwords should match</p>
         </div>
         <div class="mt-3 mb-2">
+          <!-- Search -->
           <label for="search" class="block text-my-gray text-xs">Search Country</label>
-          <input v-model="search" @input="handleInput" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
-          <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+
+          <!-- Search Input -->
+          <input id="search" v-model="search" @input="handleInput" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
+         
+          <!-- Dropdown -->
+          <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 max-h-40 overflow-y-auto">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-              <li v-on:click="setSearch(item.name.common)" v-for="item in data" :key="item.name" class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
+              <li  v-for="item in data" :key="item.name" @click="setSearch(item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
             </ul>
           </div>
         </div>
+
 
         <div class="mt-4 mb-3 flex items-center">
           <input type="checkbox" id="consent" name="consent" value="Consent" required>
@@ -160,14 +166,21 @@ const closeModal = () => {
 const search = ref(null);
 const initial_data = ref([])
 const data = computed(() => {
-  if (selectedCountry.value) return [];
+  if (selectedCountry.value) {return [];}
 
   if (search.value) {
     return initial_data.value.filter(country =>
       country.name.common.toLowerCase().includes(search.value.toLowerCase())
     );
   } else {
-    return [];
+
+    const priorityList = initial_data.value.filter( country =>
+      priorityCountries.includes(country.name.common)
+    );
+    const otherCountries = initial_data.value.filter(
+      country => !priorityCountries.includes(country.name.common)
+    );
+    return [...priorityList, ...otherCountries];
   }
 });
 
@@ -201,16 +214,33 @@ const handleInput = () => {
   const personalizedSalutation = ref('');
   const errorPasswordLength = ref(false);
   const errorPasswordSigns = ref(false);
+
+  const priorityCountries = ['Austria', 'Germany', 'Switzerland'];
   
   onMounted(async () => {
   try {
     const res = await axios.get(`https://restcountries.com/v3.1/all`);
-    initial_data.value = res.data; 
+    initial_data.value = res.data.sort((a, b) => {
+
+      if(priorityCountries.includes(a.name.common) && priorityCountries.includes(b.name.common)){
+        return priorityCountries.indexOf(a.name.common) - priorityCountries.indexOf(b.name.common);
+      }
+
+      else if(priorityCountries.includes(a.name.common)){
+        return -1;
+      } else if(priorityCountries.includes(b.name.common)){
+        return 1;
+      }
+      return a.name.common.localeCompare(b.name.common);
+
+    });
+     
   } catch (err) {
-    err.value = 'Error! Could not reach the API. ' + err;
-    console.log(err.value);
+    console.error('Error! Could not reach the API:', err); 
   }
 });
+
+
 
 
 
@@ -253,6 +283,7 @@ const handleInput = () => {
           salutation: personalizedSalutation.value || salutation.value,
           country: selectedCountry.value
       }
+
         await axios.post('/api/auth/register', newUser);
         toast.success('Successfully registered');
         emit('register');

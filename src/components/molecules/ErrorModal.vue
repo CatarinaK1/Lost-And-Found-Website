@@ -15,7 +15,7 @@
   
   const props = defineProps({
     isOpen: Boolean,
-    message: String,
+    message: [String, Object],
   });
 
   const emit = defineEmits(['close']);
