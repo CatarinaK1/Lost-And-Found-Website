@@ -2,6 +2,7 @@
 import { defineEmits,defineProps,onMounted,ref } from 'vue';
 import LogOutButton from '@/components/molecules/LogOutButton.vue'
 import TableUser from '@/components/organisms/TableUser.vue'
+import ChangePassword from '@/components/organisms/ChangePassword.vue';
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/AuthStore';
@@ -36,22 +37,23 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="w-full bg-my-white py-10 flex flex-col items-center">
-      <div class="w-full items-center">
-        <div v-if="userDetails">
-          <div class="login-caption text-my-green text-2xl text-center mb-6">
-            This is your lost and found profile
-          </div>
-          <TableUser :userDetail="userDetails" />
-          <div class="flex justify-center items-center">
-            <LogOutButton />
-          </div>
+  <div class="w-full bg-my-white py-10 flex flex-col items-center">
+    <div class="w-full items-center">
+      <div v-if="userDetails">
+        <div class="login-caption text-my-green text-2xl text-center mb-6">
+          This is your lost and found profile
         </div>
-        <div v-else class="text-my-green text-2xl text-center mb-6">
-        <p>You are not logged in</p>
+        <TableUser :userDetail="userDetails" />
+        <ChangePassword />
+        <div class="flex justify-center items-center mt-4">
+          <LogOutButton />
+        </div>
       </div>
-        
+      <div v-else>
+        <p class="text-my-green text-2xl text-center mb-6">
+          You are not logged in
+        </p>
       </div>
     </div>
-  </template>
-  
+  </div>
+</template>
