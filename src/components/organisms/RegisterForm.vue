@@ -3,7 +3,7 @@
       <form @submit.prevent="handleSubmit" class="bg-my-white pb-6 rounded shadow-md w-80 px-10">
         <div class="mb-2 mt-3">
           <label for="salutation" class="block text-my-gray text-xs">Choose a salutation</label>
-          <select id="salutation" name="salutation" v-model="salutation" placeholder="Choose salutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+          <select id="salutation" name="salutation" v-model="salutation" placeholder="Choose salutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs">
             <option value="miss">Ms</option>
             <option value="mrs">Mrs</option>
             <option value="mr">Mr</option>
@@ -18,12 +18,12 @@
                   name="personalizedSalutation" 
                   v-model="personalizedSalutation"
                   @input="validateSalutation"
-                  v-bind:class="{'border-red-500': issalutationerror}"  
-                  class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" required>
+                  v-bind:class="{'border-red-500': issalutationerror || errors.personalizedSalutation}"  
+                  class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" >
         </div>
-        <div v-if="issalutationerror" class="flex items-center mb-3">
+        <div v-if="errors.personalizedSalutation || issalutationerror" class="flex items-center mt-3 mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-          <p class="text-red-500 text-xs">Salutation should not be longer than 30 signs</p>
+          <p class="text-red-500 text-xs">{{ errors.personalizedSalutation || "Salutation should not be longer than 30 characters" }}</p>
         </div>
         <div class="mb-3 mt-3">
           <label for="name" class="block text-my-gray text-xs">Name</label>
@@ -31,9 +31,15 @@
             type="text"
             id="name"
             v-model="name"
+            @input="validateField('name', name)"
+            v-bind:class="{'border-red-500': errors.name}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Enter your name" required
+            placeholder="Enter your name" 
           />
+        </div>
+        <div v-if="errors.name" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">{{errors.name}}</p>
         </div>
         <div class="mb-3 mt-3">
           <label for="surname" class="block text-my-gray text-xs">Surname</label>
@@ -41,9 +47,15 @@
             type="text"
             id="surname"
             v-model="surname"
+            @input="validateField('surname', surname)"
+            v-bind:class="{'border-red-500': errors.surname}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Enter your surname" required
+            placeholder="Enter your surname" 
           />
+        </div>
+        <div v-if="errors.surname" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">{{errors.surname}}</p>
         </div>
         <div class="mb-3 mt-3">
           <label for="username" class="block text-my-gray text-xs">Username</label>
@@ -51,10 +63,15 @@
             type="text"
             id="username"
             v-model="username"
-            v-bind:class="{'border-red-500': usernameFailed}"
+            @input="validateField('username', username)"
+            v-bind:class="{'border-red-500': usernameFailed || errors.username}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Enter your username" required
+            placeholder="Enter your username" 
           />
+        </div>
+        <div v-if="errors.username" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">{{errors.username}}</p>
         </div>
         <div v-if="usernameFailed" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
@@ -63,18 +80,18 @@
         <div class="mb-3 mt-3">
           <label for="mail" class="block text-my-gray text-xs">Email</label>
           <input
-            type="email"
+            type="text"
             id="mail"
             v-model="mail"
-            @input="validatemail"
-            v-bind:class="{'border-red-500': ismailError, 'border-red-500': mailFailed}"
+            @input="validateField('mail', mail)"
+            v-bind:class="{'border-red-500': errors.mail || mailFailed}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Enter your email" required
+            placeholder="Enter your email" 
           />
         </div>
-        <div v-if="ismailError" class="flex items-center mb-3">
+        <div v-if="errors.mail" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-          <p class="text-red-500 text-xs">Email is invalid</p>
+          <p class="text-red-500 text-xs">{{errors.mail}}</p>
         </div>
         <div v-if="mailFailed" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
@@ -84,21 +101,17 @@
           <label for="password" class="block text-my-gray text-xs">Password</label>
           <input
             type="password"
-            @input="validatePasswordLength"
+            @input="validateField('password', password)"
             id="password"
             v-model="password"
-            v-bind:class="{'border-red-500': errorPassword || errorPasswordLength || errorPasswordSigns}"
+            v-bind:class="{'border-red-500': errors.password}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Enter your password" required
+            placeholder="Enter your password"
           />
         </div>
-        <div v-if="errorPasswordLength" class="flex items-center mb-3">
+        <div v-if="errors.password" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-          <p class="text-red-500 text-xs">Password should contain between 8 and 12 characters</p>
-        </div>
-        <div v-if="errorPasswordSigns" class="flex items-center mb-3">
-          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-          <p class="text-red-500 text-xs">Password should contain at least one special sign and capital letter</p>
+          <p class="text-red-500 text-xs">{{errors.password}}</p>
         </div>
         <div class="mt-3 mb-2">
           <label for="repeat_password" class="block text-my-gray text-xs">Repeat Password</label>
@@ -107,21 +120,25 @@
             id="repeat_password"
             v-model="repeat_password"
             @input="validatePassword"
-            v-bind:class="{'border-red-500': errorPassword}"
+            v-bind:class="{'border-red-500': errorPassword || errors.repeat_password}"
             class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs"
-            placeholder="Repeat your password" required
+            placeholder="Repeat your password"
           />
         </div>
-        <div v-if="errorPassword" class="flex items-center mb-3">
+        <div v-if="errors.repeat_password" class="flex items-center mb-3">
           <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
-          <p class="text-red-500 text-xs">Passwords should match</p>
+          <p class="text-red-500 text-xs">{{errors.repeat_password}}</p>
+        </div>
+        <div v-else-if="errorPassword" class="flex items-center mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">Passwords should match g</p>
         </div>
         <div class="mt-3 mb-2">
           <!-- Search -->
           <label for="search" class="block text-my-gray text-xs">Search Country</label>
 
           <!-- Search Input -->
-          <input id="search" v-model="search" @input="handleInput" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
+          <input id="search" v-model="search" @input="handleInput" v-bind:class="{'border-red-500': errors.country}" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
          
           <!-- Dropdown -->
           <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 max-h-40 overflow-y-auto">
@@ -129,14 +146,18 @@
               <li  v-for="item in data" :key="item.name" @click="setSearch(item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
             </ul>
           </div>
+          <div v-if="errors.country" class="flex items-center mt-3 mb-3">
+          <img class="max-h-3 h-auto w-auto mr-2" :src="mark" alt="exclamation-mark" />
+          <p class="text-red-500 text-xs">{{errors.country}}</p>
+        </div>
         </div>
 
 
         <div class="mt-4 mb-3 flex items-center">
-          <input type="checkbox" id="consent" name="consent" value="Consent" required>
+          <input type="checkbox" v-model="consent" id="consent" name="consent" value="Consent">
           <label for="consent" class="block text-my-gray text-xs flex items-center mr-1 ml-2"> I have read and understood the </label>
           <RouterLink
-            to="/rules"
+            to="/rules" 
             class="block text-my-gray text-xs hover:text-blue-700 text-decoration: underline;"
           >rules</RouterLink>
         </div>
@@ -154,6 +175,53 @@
   import mark from '@/assets/images/exc_mark.png';
   import { useToast } from 'vue-toastification';
   import ErrorModal from '@/components/molecules/ErrorModal.vue';
+  import * as yup from "yup";
+
+  const schema = yup.object({
+    salutation: yup.string().required("Salutation is required"),
+    personalizedSalutation: yup
+      .string()
+      .when("salutation", (salutation, schema) => {
+    if (salutation == "other") {
+      return schema
+        .max(30, "Salutation should not be longer than 30 signs")
+        .required("Personalized salutation is required");
+    }
+    return schema.nullable();
+  }),
+    name: yup.string().required("Name is required"),
+    surname: yup.string().required("Surname is required"),
+    username: yup.string().required("Username is required"),
+    mail: yup.string().email("Email is invalid").required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password should contain at least 8 characters")
+      .max(12, "Password should not exceed 12 characters")
+      .matches(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/,
+        "Password should contain at least one special sign and capital letter"
+      )
+      .required("Password is required"),
+    repeat_password: yup
+      .string()
+      .oneOf([yup.ref("password")], "Passwords should match")
+      .required("Please repeat the password"),
+    consent: yup.bool().oneOf([true], "You must accept the rules"),
+    country: yup.string().required("Country is required"),
+  });
+
+
+  const validateField = async (field, value) => {
+  try {
+    await schema.fields[field].validate(value);
+    errors.value[field] = "";
+  } catch (error) {
+    errors.value[field] = error.message;
+  }
+};
+
+
+
 
 const isModalOpen = ref(false); 
 const modalError = ref(''); 
@@ -207,13 +275,13 @@ const handleInput = () => {
   const password = ref('');
   const repeat_password = ref('');
   const errorPassword = ref(false);
-  const ismailError = ref(false);
   const issalutationerror = ref(false)
   const usernameFailed = ref(false);
   const mailFailed = ref(false);
   const personalizedSalutation = ref('');
-  const errorPasswordLength = ref(false);
-  const errorPasswordSigns = ref(false);
+  const consent = ref(false);
+
+  const errors = ref({});
 
   const priorityCountries = ['Austria', 'Germany', 'Switzerland'];
   
@@ -241,39 +309,30 @@ const handleInput = () => {
 });
 
 
-
-
-
-  const validatemail = () => {
-    const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    ismailError.value = !mailRegex.test(mail.value);
-  };
-
   const validateSalutation = () => {
     issalutationerror.value = personalizedSalutation.value.length > 30;
   };
 
-  const validatePasswordLength = () => {
-    validatePasswordSigns();
-    errorPasswordLength.value = (password.value.length > 12 || password.value.length < 8);
-  };
 
-  const validatePasswordSigns = () => {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/;
-    errorPasswordSigns.value = !regex.test(password.value);
-  }
-  
   const validatePassword = () => {
     errorPassword.value = password.value !== repeat_password.value;
   };
   
   const handleSubmit = async () => {
-    if(ismailError.value || issalutationerror.value || errorPassword.value || errorPasswordSigns.value || usernameFailed.value || mailFailed.value || errorPasswordLength.value){
-      modalError.value = "Provide valid data"
-      isModalOpen.value = true;
-    }
-    else{
       try {
+        const formData = {
+        salutation: salutation.value,
+        personalizedSalutation: personalizedSalutation.value,
+        name: name.value,
+        surname: surname.value,
+        username: username.value,
+        mail: mail.value,
+        password: password.value,
+        repeat_password: repeat_password.value,
+        consent: consent.value,
+        country: selectedCountry.value,
+        };
+      await schema.validate(formData, { abortEarly: false });
       const newUser = {
           name: name.value,
           surname: surname.value,
@@ -289,7 +348,20 @@ const handleInput = () => {
         emit('register');
       
     }  catch (error) {
-    if (axios.isAxiosError(error)) {
+      if (error instanceof yup.ValidationError) {
+      const validationErrors = {};
+      error.inner.forEach((error) => {
+        validationErrors[error.path] = error.message;
+      });
+      errors.value = validationErrors;
+      for (const key in errors.value) {
+        if (errors.value.hasOwnProperty(key)) {
+          modalError.value += `${errors.value[key]}` + `<br>`;
+        }
+        isModalOpen.value = true;
+      }
+    }
+    else if (axios.isAxiosError(error)) {
       if (error.response) {
         modalError.value = error.response.data || 'An error occurred';
       } else if (error.request) {
@@ -301,9 +373,7 @@ const handleInput = () => {
       modalError.value = `Error: ${error.message}`;
     }
     isModalOpen.value = true;
-  }
-    }
-    
+    } 
   };
   </script>
   
