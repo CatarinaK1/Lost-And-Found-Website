@@ -28,6 +28,9 @@
   import axios from 'axios';
   import mark from '@/assets/images/exc_mark.png'
   import { useRouter } from 'vue-router';
+  import { useAuthStore } from '../../stores/AuthStore';
+
+  const authStore = useAuthStore();
   
   const router = useRouter();
   const emit = defineEmits(['addedReview']);
@@ -52,7 +55,7 @@
   
         await axios.post('/api/reviews', newReview, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
     });
         router.push('/');

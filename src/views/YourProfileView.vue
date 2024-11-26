@@ -4,6 +4,9 @@ import LogOutButton from '@/components/molecules/LogOutButton.vue'
 import TableUser from '@/components/organisms/TableUser.vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/AuthStore';
+
+const authStore = useAuthStore();
 
 const router = useRouter(); 
 
@@ -12,10 +15,10 @@ const userDetails = ref(null);
 
 onMounted(async () => {
   try {
-    if(localStorage.getItem('token')){
+    if(authStore.getToken){
     const response = await axios.get("/api/user", {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
     });
     if (response.data) {

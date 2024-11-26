@@ -3,6 +3,9 @@ import { ref, defineProps, onMounted, onUpdated } from 'vue';
 import axios from 'axios';
 import user from '@/assets/images/user.png'
 import ErrorModal from '../molecules/ErrorModal.vue';
+import { useAuthStore } from '../../stores/AuthStore';
+
+const authStore = useAuthStore();
 
 const userDetailsFull = ref(null);
 
@@ -29,10 +32,10 @@ onMounted(() =>{
 
 onUpdated(async () => {
   try {
-    if(localStorage.getItem('token')){
+    if(authStore.getToken){
     const response = await axios.get("/api/user", {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
     });
     if (response.data) {
@@ -55,7 +58,7 @@ const uploadPhoto = async (event) => {
     try {
       const response = await axios.post('/api/user/photo', formData, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
           'Content-Type': 'multipart/form-data'
         }});      
       if (response.status === 200) {

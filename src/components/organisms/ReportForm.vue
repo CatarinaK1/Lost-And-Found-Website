@@ -115,6 +115,9 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
+import { useAuthStore } from '../../stores/AuthStore';
+
+const authStore = useAuthStore();
 
 const toast = useToast();
 
@@ -151,7 +154,7 @@ const submitForm = async () => {
   try {
     await axios.post('/api/found_items/submit', payload, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Authorization': `Bearer ${authStore.getToken}`,
         'Content-Type': 'application/json',
       },
     });

@@ -3,6 +3,9 @@
 import { ref,onMounted, onUpdated } from 'vue';
 import axios from 'axios';
 import UserTab from '@/components/molecules/UserTab.vue';
+import { useAuthStore } from '../../stores/AuthStore';
+
+const authStore = useAuthStore();
 
 const users = ref([]);
 
@@ -12,7 +15,7 @@ onMounted(async () => {
     try{
         const response = await axios.get('/api/users',{
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
       });
         users.value = response.data
@@ -25,7 +28,7 @@ onUpdated(async () => {
     try{
         const response = await axios.get('/api/users',{
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
       });
         users.value = response.data

@@ -21,7 +21,7 @@ onMounted(() =>{
         Manage users of the system
       </div>
       <div class="text-my-green text-lg text-center mb-6">
-        Below you can delete or change password of particular users
+        Below you can modify user database.
       </div>
       <UserManagementTable />
     </div>

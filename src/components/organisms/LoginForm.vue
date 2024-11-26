@@ -76,7 +76,7 @@ const handleSubmit = async () => {
 
       toast.success('Successfully logged in.')
       const token = response.data.accessToken;
-      localStorage.setItem('token', token)
+      authStore.setToken(token);
       authStore.setUser(username);
 
       const decodedToken = jwtDecode.jwtDecode(token);

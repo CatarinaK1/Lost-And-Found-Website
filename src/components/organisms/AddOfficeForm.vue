@@ -15,6 +15,9 @@ const uploaded = ref(false);
 const districts = ref([]);
 const selectedDistrict = ref();
 import { useToast } from 'vue-toastification';
+import { useAuthStore } from '../../stores/AuthStore';
+
+const authStore = useAuthStore();
   
   const toast = useToast();
 
@@ -38,7 +41,7 @@ const handleSubmit = async () => {
       }
       await axios.post('/api/offices', newOffice, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
       });
       toast.success('Successfully added office');

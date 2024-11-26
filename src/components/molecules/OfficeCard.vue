@@ -40,7 +40,7 @@ const handleDelete = async (id) => {
     try {
         const response = await axios.delete(`/api/offices/${id}`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }})
         toast.success("Successfully deleted");
     } catch (error) {
@@ -92,7 +92,7 @@ const handleSubmit = async () => {
       }
       await axios.put('/api/offices/'+props.details.id, updOffice, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${authStore.getToken}`,
         }
       });
       editMode.value = false;
