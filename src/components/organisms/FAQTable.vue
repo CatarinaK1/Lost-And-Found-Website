@@ -6,14 +6,31 @@ import FAQTab from '@/components/molecules/FAQTab.vue';
 
 const faqs = ref([]);
 
+
+// onMounted(async () => {
+//     try{
+//         const response = await axios.get('/api/faqs');
+//         faqs.value = response.data
+//     }catch(error){
+//         console.error('Error fetching FAQs',error);
+//     }
+// })
+
 onMounted(async () => {
-    try{
-        const response = await axios.get('/api/faqs');
-        faqs.value = response.data
-    }catch(error){
-        console.error('Error fetching FAQs',error);
-    }
-})
+  try {
+    // Fetch all FAQs
+    const response = await axios.get('/api/faqs');
+    
+    // Filter approved FAQs directly after fetching
+    faqs.value = response.data.filter(faq => faq.approved === true);
+  } catch (error) {
+    console.error('Error fetching FAQs', error);
+  }
+});
+
+
+
+
 
 </script>
 <template>
