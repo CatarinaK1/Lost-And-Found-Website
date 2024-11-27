@@ -47,6 +47,12 @@ import ErrorModal from '@/components/molecules/ErrorModal.vue';
 import { useAuthStore } from '@/stores/AuthStore';
 import * as jwtDecode from 'jwt-decode';
 import { useRouter } from 'vue-router';
+import * as yup from "yup";
+
+const schema = yup.object({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required")
+})
 
 const authStore = useAuthStore();
 const router = useRouter(); 
@@ -65,44 +71,61 @@ const username = ref('');
 const password = ref('');
 const isError = ref(false);
 const isErrorUser = ref(false);
+const errors = ref({});
 
 const handleSubmit = async () => {
+  
   try {
-      const newLogin = {
-          username: username.value,
-          password: password.value 
+    const formData = {
+    username: username.value,
+    password: password.value
+    };
+    await schema.validate(formData, { abortEarly: false });
+    const newLogin = {
+      username: username.value,
+      password: password.value 
+    }
+    const response =  await axios.post('/api/auth/login', newLogin);
+
+    toast.success('Successfully logged in.')
+    const token = response.data.accessToken;
+    authStore.setToken(token);
+    authStore.setUser(username);
+
+    const decodedToken = jwtDecode.jwtDecode(token);
+    const roles = decodedToken.roles || [];
+    if(roles.includes('ADMIN')){
+      authStore.setRole('ADMIN');
+    }else{
+      authStore.setRole('USER');
+    };
+    router.push('/profile');
+    }catch (error) {
+      if (error instanceof yup.ValidationError) {
+        const validationErrors = {};
+        error.inner.forEach((error) => {
+          validationErrors[error.path] = error.message;
+        });
+        errors.value = validationErrors;
+        for (const key in errors.value) {
+          if (errors.value.hasOwnProperty(key)) {
+            modalError.value += `${errors.value[key]}` + `<br>`;
+          }
+          isModalOpen.value = true;
+        }
       }
-      const response =  await axios.post('/api/auth/login', newLogin);
-
-      toast.success('Successfully logged in.')
-      const token = response.data.accessToken;
-      authStore.setToken(token);
-      authStore.setUser(username);
-
-      const decodedToken = jwtDecode.jwtDecode(token);
-      const roles = decodedToken.roles || [];
-      if(roles.includes('ADMIN')){
-        authStore.setRole('ADMIN');
-      }else{
-        authStore.setRole('USER');
-      };
-
-
-      router.push('/profile');
-      
-    }  catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        modalError.value = error.response.data || 'An error occurred';
-      } else if (error.request) {
-        modalError.value = 'Server does not respond.';
+      else if (axios.isAxiosError(error)) {
+        if (error.response) {
+          modalError.value = error.response.data || 'An error occurred';
+        } else if (error.request) {
+          modalError.value = 'Server does not respond.';
+        } else {
+          modalError.value = `Error: ${error.message}`;
+        }
       } else {
         modalError.value = `Error: ${error.message}`;
       }
-    } else {
-      modalError.value = `Error: ${error.message}`;
-    }
-    isModalOpen.value = true;
+      isModalOpen.value = true;
   }
 };
 </script>
