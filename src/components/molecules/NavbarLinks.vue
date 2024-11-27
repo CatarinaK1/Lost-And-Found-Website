@@ -54,6 +54,11 @@ const isActiveLink = (routePath) => {
           to="/users/management"
           :class="[isActiveLink('/users/management') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
         >Manage Users</RouterLink>
+        <RouterLink
+          v-if="isAdminUser"
+          to="/faq/management"
+          :class="[isActiveLink('/faq/management') ? 'bg-green-900' : 'hover:bg-gray-900 hover:text-white','text-white','text-sm','px-3','py-2','rounded-md']"
+        >Manage FAQs</RouterLink>
       </div>
     </div>
   </div>

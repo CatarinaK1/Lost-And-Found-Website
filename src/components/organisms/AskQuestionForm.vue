@@ -1,3 +1,49 @@
+<script setup>
+import { ref, defineEmits } from 'vue';
+import axios from 'axios';
+import mark from '@/assets/images/exc_mark.png'
+
+const emit = defineEmits(['addedQuestion']);
+const body = ref("")
+const errorBody = ref(false);
+
+const validateBody = () => {
+  if(body.value.length > 200){
+      errorBody.value = true;
+  }
+  else{
+      errorBody.value = false;
+  }
+};
+
+
+
+
+const handleSubmit = async () => {
+  try {
+    if (errorBody.value === false) {
+      const newQuestion = {
+        Question: body.value,
+        Answer: "Wait for our staff to provide the answer"
+      };
+      console.log(newQuestion); // Log the incoming request
+      await axios.post('/api/faqs/ask', newQuestion,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      }
+      );
+      emit('addedQuestion');
+    }
+  } catch (error) {
+      console.error('Error adding question:', error.response?.data || error);
+
+  }
+};
+
+</script>
+
+
+
 <template>
     <div class="flex items-center justify-center bg-gray-100">
       <form @submit.prevent="handleSubmit" class="bg-my-white pb-6 rounded shadow-md w-full max-w-xl px-10">
@@ -23,40 +69,5 @@
     </div>
   </template>
   
-  <script setup>
-  import { ref, defineEmits } from 'vue';
-  import axios from 'axios';
-  import mark from '@/assets/images/exc_mark.png'
-  
-  const emit = defineEmits(['addedQuestion']);
-  const body = ref("")
-  const errorBody = ref(false);
 
-  const validateBody = () => {
-    if(body.value.length > 200){
-        errorBody.value = true;
-    }
-    else{
-        errorBody.value = false;
-    }
-  };
-  
-  const handleSubmit = async () => {
-    try {
-      if (errorBody.value === false) {
-        const newQuestion = {
-          question: body.value,
-          answer: "Wait for our staff to provide the answer"
-        };
-  
-        await axios.post('/api/faqs', newQuestion);
-        emit('addedQuestion');
-      }
-    } catch (error) {
-      console.error('Error adding question:', error);
-    }
-  };
-
-  </script>
-  
   
