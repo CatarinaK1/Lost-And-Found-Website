@@ -2,6 +2,10 @@
 import { ref, defineEmits } from 'vue';
 import axios from 'axios';
 import mark from '@/assets/images/exc_mark.png'
+import { useAuthStore } from '@/stores/AuthStore';
+
+const authStore = useAuthStore();
+
 
 const emit = defineEmits(['addedQuestion']);
 const body = ref("")
@@ -29,7 +33,9 @@ const handleSubmit = async () => {
       console.log(newQuestion); // Log the incoming request
       await axios.post('/api/faqs/ask', newQuestion,
       {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: {
+          'Authorization': `Bearer ${authStore.getToken}`,
+        }
       }
       );
       emit('addedQuestion');

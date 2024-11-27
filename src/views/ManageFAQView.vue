@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useRouter } from 'vue-router';
-
 import AdminFAQTable from '@/components/organisms/AdminFAQTable.vue';
 
 
@@ -18,8 +17,8 @@ const faqs = ref([]);
 const fetchAllFAQs = async () => {
   const response = await axios.get('/api/faqs', {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+          'Authorization': `Bearer ${authStore.getToken}`,
+        },
   });
   faqs.value = response.data;
 };

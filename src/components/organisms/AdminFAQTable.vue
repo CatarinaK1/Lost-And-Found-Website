@@ -2,7 +2,10 @@
 import { ref, watch, defineEmits, onMounted, onUpdated  } from 'vue';
 import axios from 'axios';
 import FAQTab from '@/components/molecules/FAQTab.vue';
+import { useAuthStore } from '@/stores/AuthStore';
 
+
+const authStore = useAuthStore();
 
 
 const props = defineProps({
@@ -56,7 +59,9 @@ const approveFaq = async (id) => {
       `/api/faqs/${id}/approve`,
       {},
       {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: {
+          'Authorization': `Bearer ${authStore.getToken}`,
+        }
       }
     );
     emit('refresh'); 
@@ -70,7 +75,9 @@ const deleteFaq = async (id) => {
   try {
 
     await axios.delete(`/api/faqs/${id}/delete`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: {
+          'Authorization': `Bearer ${authStore.getToken}`,
+        }
     });
     emit('refresh'); // Signal parent to refresh data
   } catch (error) {
@@ -84,7 +91,9 @@ const updateFaq = async (id, updatedData) => {
   try {
     console.log(updatedData);
     await axios.put(`/api/faqs/${id}/update`, updatedData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      headers: {
+          'Authorization': `Bearer ${authStore.getToken}`,
+        }
     });
     
     emit('refresh'); // Signal parent to refresh data
