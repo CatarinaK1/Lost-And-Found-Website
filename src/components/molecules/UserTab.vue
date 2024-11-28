@@ -8,9 +8,12 @@ import wpen from "@/assets/images/whitepen.png"
 import rpen from "@/assets/images/redpen.png"
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/AuthStore';
+import { defineEmits } from 'vue';
 
 const authStore = useAuthStore();
 
+
+const emit = defineEmits();
 const toast = useToast();
 
 const hover = ref(false);
@@ -43,9 +46,10 @@ const deleteUser = async() =>{
         await axios.delete('/api/users',{
       data: props.data.username,
       headers: {
-        'Authorization': `Bearer ${authS.getItem('token')}`,
+        'Authorization': `Bearer ${authStore.getToken}`,
       }
       })
+      emit('changed');
     }  catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -81,6 +85,7 @@ const submitChanges = async() => {
           'Authorization': `Bearer ${authStore.getToken}`,
         }
       });
+      emit('changed');
       editMode.value = false;
     }  catch (error) {
       if (axios.isAxiosError(error)) {

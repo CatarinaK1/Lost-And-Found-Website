@@ -1,7 +1,7 @@
 <script setup>
 import OfficeCard from '@/components/molecules/OfficeCard.vue';
 
-import {ref, onMounted,computed, onUpdated} from 'vue';
+import {ref, onMounted,computed} from 'vue';
 import axios from 'axios';
 
 
@@ -23,23 +23,18 @@ const filteredOffices = computed(() => {
 });
 
 onMounted(async () => {
+    fetchData();
+})
+
+
+const fetchData = async () => {
     try{
         const response = await axios.get('/api/offices');
         offices.value = response.data
     }catch(error){
         console.error('Error fetching jobs',error);
     }
-})
-
-
-onUpdated(async () => {
-    try{
-        const response = await axios.get('/api/offices');
-        offices.value = response.data
-    }catch(error){
-        console.error('Error fetching jobs',error);
-    }
-})
+}
 
 
 </script>
@@ -56,7 +51,7 @@ onUpdated(async () => {
     <section class="bg-my-white px-8 py-10">
         <div class="m-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office"/>
+                <OfficeCard v-for="office in filteredOffices" :key="office.id" :details="office" @changed="fetchData"/>
             </div>
     </div>
 

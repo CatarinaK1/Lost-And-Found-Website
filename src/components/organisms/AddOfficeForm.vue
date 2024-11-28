@@ -87,7 +87,7 @@ const uploadPhoto = (event) => {
 onMounted(async () => {
     try{
         const response = await axios.get('/api/districts');
-        districts.value = response.data
+        districts.value = response.data.sort((a, b) => a.id - b.id);
     }catch(error){
         console.error('Error fetching districts',error);
     }

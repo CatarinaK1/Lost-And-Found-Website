@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, defineEmits, onMounted, onUpdated  } from 'vue';
+import { ref, watch, defineEmits, onMounted  } from 'vue';
 import axios from 'axios';
 import FAQTab from '@/components/molecules/FAQTab.vue';
 import { useAuthStore } from '@/stores/AuthStore';

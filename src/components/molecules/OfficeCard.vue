@@ -18,7 +18,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const editMode = ref(false);
-
+const emit = defineEmits();
 
 
 const props = defineProps({
@@ -43,6 +43,7 @@ const handleDelete = async (id) => {
           'Authorization': `Bearer ${authStore.getToken}`,
         }})
         toast.success("Successfully deleted");
+        emit('changed');
     } catch (error) {
       toast.error("Error while deleting");
       console.error('Error while deleting:', error.response ? error.response.data : error.message);
@@ -96,6 +97,7 @@ const handleSubmit = async () => {
         }
       });
       editMode.value = false;
+      emit('changed');
     }  catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {

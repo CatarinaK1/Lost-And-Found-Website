@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref,onMounted, onUpdated } from 'vue';
+import { ref,onMounted } from 'vue';
 import axios from 'axios';
 import UserTab from '@/components/molecules/UserTab.vue';
 import { useAuthStore } from '../../stores/AuthStore';
@@ -24,7 +24,7 @@ onMounted(async () => {
     }
 })
 
-onUpdated(async () => {
+const fetchData = async () => {
     try{
         const response = await axios.get('/api/users',{
         headers: {
@@ -35,14 +35,14 @@ onUpdated(async () => {
     }catch(error){
         console.error('Error fetching users',error);
     }
-})
+}
 
 </script>
 <template>
     <div class="flex justify-center items-center bg-gray-100 mt-4 mb-4">
       <div class="bg-my-white text-my-gray px-4 pt-4 rounded-lg shadow-md border-2 border-my-green w-auto">
         <div v-for="user in users">
-            <UserTab :data="user"/>
+            <UserTab :data="user" @changed="fetchData"/>
         </div>
       </div>
     </div>

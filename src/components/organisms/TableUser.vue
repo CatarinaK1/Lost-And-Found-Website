@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onMounted, onUpdated } from 'vue';
+import { ref, defineProps, onMounted } from 'vue';
 import axios from 'axios';
 import user from '@/assets/images/user.png';
 import ErrorModal from '../molecules/ErrorModal.vue';
@@ -29,7 +29,8 @@ onMounted(() => {
   userDetailsFull.value = props.userDetail;
 });
 
-onUpdated(async () => {
+
+const fetchData = async () => {
   try {
     if(authStore.getToken){
     const response = await axios.get("/api/user", {
@@ -45,7 +46,8 @@ onUpdated(async () => {
   } catch (error) {
     console.error('Error fetching user details:', error);
   }
-});
+};
+
 
 const uploadPhoto = async (event) => {
   const file = event.target.files[0];
@@ -61,6 +63,7 @@ const uploadPhoto = async (event) => {
         }});      
       if (response.status === 200) {
         console.log('Photo uploaded successfully');
+        await fetchData();
       } else {
         console.error("Failed to upload photo");
       }
@@ -82,6 +85,7 @@ const deletePhoto = async () => {
     if (response.status === 200) {
       userDetailsFull.value.photo = null;
       console.log('Photo deleted successfully');
+      await fetchData();
     } else {
       console.error("Failed to delete photo");
     }
