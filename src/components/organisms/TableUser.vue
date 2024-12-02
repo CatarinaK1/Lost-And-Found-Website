@@ -56,12 +56,12 @@ const uploadPhoto = async (event) => {
     formData.append('photo', file);
 
     try {
-      const response = await axios.post('/api/user/photo', formData, {
+      const response = await axios.post('/api/userphotos', formData, {
         headers: {
           'Authorization': `Bearer ${authStore.getToken}`,
           'Content-Type': 'multipart/form-data'
         }});      
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log('Photo uploaded successfully');
         await fetchData();
       } else {
@@ -77,7 +77,7 @@ const uploadPhoto = async (event) => {
 
 const deletePhoto = async () => {
   try {
-    const response = await axios.delete('/api/user/photo', {
+    const response = await axios.delete('/api/userphotos', {
       headers: {
         Authorization: `Bearer ${authStore.getToken}`,
       },
