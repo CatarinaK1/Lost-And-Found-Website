@@ -29,8 +29,10 @@
   import mark from '@/assets/images/exc_mark.png'
   import { useRouter } from 'vue-router';
   import { useAuthStore } from '../../stores/AuthStore';
+  import { useToast } from 'vue-toastification';
 
   const authStore = useAuthStore();
+  const toast = useToast();
   
   const router = useRouter();
   const emit = defineEmits(['addedReview']);
@@ -58,9 +60,13 @@
           'Authorization': `Bearer ${authStore.getToken}`,
         }
     });
+        toast.success("Successfully posted review");
         router.push('/');
+      }else{
+        toast.error("Your review is too long and therefore cannot be posted");
       }
     } catch (error) {
+      toast.error("Error adding review");
       console.error('Error adding review:', error);
     }
   };
