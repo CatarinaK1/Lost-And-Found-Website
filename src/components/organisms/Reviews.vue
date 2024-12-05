@@ -45,7 +45,7 @@ const nextPage = () => {
     <section class="bg-my-gren px-20 py-10">
       <div class="m-auto">
         <div class="flex justify-between mt-6">
-          <button 
+          <button aria-label="left arrow"
             @click="prevPage" 
             class="flex-shrink-0 bg-my-green hover:bg-my-dark-green text-my-white w-16 py-2 px-4 mr-6 rounded"
           >

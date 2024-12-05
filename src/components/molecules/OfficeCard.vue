@@ -6,6 +6,7 @@ import minus from '@/assets/images/minusr.png'
 import minusw from '@/assets/images/minusw.png'
 import wpen from '@/assets/images/whitepen.png'
 import rpen from '@/assets/images/redpen.png'
+import ErrorModal from '@/components/molecules/ErrorModal.vue';
 
 
 import location from '@/assets/images/location.png';
@@ -13,12 +14,35 @@ import phone from '@/assets/images/phone.png';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/AuthStore';
+import * as yup from "yup";
+
+const emit = defineEmits(['changed']);
+  const schema = yup.object({
+    district: yup.object().required("Please specify the district"),
+    phoneNumber: yup
+    .string()
+    .matches(
+      /^(?:\+43|0)(?:\s?\d{1,4})(?:\s?\d{1,4})(?:\s?\d{4})$/,
+      'Invalid phone number format'
+    )
+    .required('Phone number is required'),
+    address: yup
+    .string()
+    .required('Address is required'),
+    photo: yup
+    .string()
+    .required('Photo is required'),
+    description: yup
+    .string()
+    .max(500, 'Description cannot exceed 500 characters')
+    .required('Description is required'),
+  });
+
 const toast = useToast();
 const router = useRouter();
 const authStore = useAuthStore();
 
 const editMode = ref(false);
-const emit = defineEmits();
 
 
 const props = defineProps({
@@ -81,6 +105,14 @@ const uploadPhoto = (event) => {
   }
 };
 
+const isModalOpen = ref(false); 
+const modalError = ref(''); 
+
+const closeModal = () => {
+  isModalOpen.value = false;
+  modalError.value = '';
+}
+const errors = ref({});
 
 const handleSubmit = async () => {
     try {
@@ -91,6 +123,7 @@ const handleSubmit = async () => {
           photo: photo.value,
           description: description.value
       }
+      await schema.validate(updOffice, { abortEarly: false });
       await axios.put('/api/offices/'+props.details.id, updOffice, {
         headers: {
           'Authorization': `Bearer ${authStore.getToken}`,
@@ -99,10 +132,24 @@ const handleSubmit = async () => {
       editMode.value = false;
       emit('changed');
     }  catch (error) {
-      if (axios.isAxiosError(error)) {
+      if (error instanceof yup.ValidationError) {
+      const validationErrors = {};
+      error.inner.forEach((error) => {
+        validationErrors[error.path] = error.message;
+      });
+      errors.value = validationErrors;
+      for (const key in errors.value) {
+        if (errors.value.hasOwnProperty(key)) {
+          modalError.value += `${errors.value[key]}` + `<br>`;
+        }
+        isModalOpen.value = true;
+      }
+    }
+      else if (axios.isAxiosError(error)) {
         if (error.response) {
           if(error.response.request.status === 400){
-            toast.error('Fill all the fields including uploading the picture')
+            toast.error(error.response.request)
+            console.log(error.response)
           }
           else{
             toast.error('Error ' + error.response.request.status);
@@ -212,4 +259,5 @@ const handleSubmit = async () => {
                 </RouterLink>
               </div>
           </div>
+          <ErrorModal :isOpen="isModalOpen" :message="modalError" @close="closeModal" />
 </template>

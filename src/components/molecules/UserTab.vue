@@ -78,7 +78,12 @@ const submitChanges = async() => {
     try {
       const updUser = {
           username: props.data.username,
-          photo: null
+          name : props.data.name,
+          surname : props.data.surname,
+          mail : props.data.mail,
+          photo: null,
+          salutation: props.data.salutation,
+          country: props.data.country
       }
       await axios.put('/api/users', updUser, {
         headers: {
@@ -129,6 +134,8 @@ const submitChanges = async() => {
         <div class="w-full text-center">Surname: {{ props.data.surname }}</div>
         <div class="w-full text-center">Username: {{ props.data.username }}</div>
         <div class="w-full text-center">Email: {{ props.data.mail }}</div>
+        <div class="w-full text-center">Salutation: {{ props.data.salutation }}</div>
+        <div class="w-full text-center">Country: {{ props.data.country }}</div>
         <div class="flex justify-center items-center space-x-4 py-2">
             <button @mouseover="hover = true" @mouseleave="hover = false" @click="deleteUser" class="flex items-center">
                 <img class="w-5 h-5" :src="hover ? minusr : minusw">

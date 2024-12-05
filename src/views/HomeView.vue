@@ -15,7 +15,7 @@ import happyImage from '@/assets/images/happy-man.jpeg';
 
     :image= "sadImage"
     header="Have you lost something in Vienna?"
-    text="Misplaced something in Vienna?,We specialize in reconnecting lost items with their owners. Search through our catalog of found items!"
+    text="Misplaced something in Vienna? We specialize in reconnecting lost items with their owners. Search through our catalog of found items!"
     linkTo="/found"
     linkText="Browse found items"
     />

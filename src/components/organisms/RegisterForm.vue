@@ -4,11 +4,11 @@
         <div class="mb-2 mt-3">
           <label for="salutation" class="block text-my-gray text-xs">Choose a salutation</label>
           <select id="salutation" name="salutation" v-model="salutation" placeholder="Choose salutation" class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs">
-            <option value="miss">Ms</option>
-            <option value="mrs">Mrs</option>
-            <option value="mr">Mr</option>
-            <option value="other">Other</option>
-            <option value="not_set">I prefer not to answer</option>
+            <option value="Ms">Ms</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Mr">Mr</option>
+              <option value="other">Other</option>
+              <option value="I prefer not to answer">I prefer not to answer</option>
           </select>
         </div>
         <div v-if="salutation == 'other'">
