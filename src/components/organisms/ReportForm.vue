@@ -118,7 +118,6 @@ import 'vue-toastification/dist/index.css';
 import { useAuthStore } from '../../stores/AuthStore';
 
 const authStore = useAuthStore();
-
 const toast = useToast();
 
 const name = ref('');
@@ -134,7 +133,7 @@ const handleFileChange = (event) => {
   if (file) {
     const reader = new FileReader();
     reader.onloadend = () => {
-      photo.value = reader.result.split(',')[1];
+      photo.value = reader.result.split(',')[1]; 
     };
     reader.readAsDataURL(file);
   }
@@ -158,9 +157,21 @@ const submitForm = async () => {
         'Content-Type': 'application/json',
       },
     });
-    toast.success('Form submitted successfully!');
+    toast.success('Item submitted successfully!');
+    clearForm();
   } catch (error) {
-    toast.error('Error submitting form: ' + error.message);
-  }
+    const errorMessage = error.response?.data?.message || error.message || 'Unknown error occurred.';
+  toast.error(`Error submitting item: ${errorMessage}`);
+}
+};
+
+const clearForm = () => {
+  name.value = '';
+  category.value = '';
+  foundPlace.value = '';
+  foundDate.value = '';
+  office.value = '';
+  description.value = '';
+  photo.value = '';
 };
 </script>

@@ -17,25 +17,45 @@ const updatedDescription = ref('');
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/found_items/${itemId}`);
+    const response = await axios.get(`/api/found_items/${itemId}`, {
+    });
     itemDetails.value = response.data;
     updatedDescription.value = itemDetails.value.description;
   } catch (error) {
     console.error('Error fetching item details', error);
+    toast.error('Failed to fetch item details');
   }
 });
 
 const handleUpdate = async () => {
   try {
-    await axios.put(`/api/found_items/description/${itemId}`, {
-      description: updatedDescription.value,
-    });
-    itemDetails.value.description = updatedDescription.value;
+    const response = await axios.put(
+      `/api/found_items/description/${itemId}`,
+      {
+        id: itemId,
+        name: itemDetails.value.name,
+        category: itemDetails.value.category,
+        description: updatedDescription.value,
+        office: itemDetails.value.office,
+        photo: itemDetails.value.photo,
+        foundDate: itemDetails.value.foundDate,
+        foundPlace: itemDetails.value.foundPlace,
+      },
+      {
+        headers: {
+        'Authorization': `Bearer ${authStore.getToken}`,
+        'Content-Type': 'application/json',
+      },
+      }
+    );
+    itemDetails.value = response.data;
     isEditing.value = false;
     toast.success('Description updated successfully');
   } catch (error) {
-    toast.error('Error while updating description');
-    console.error('Error while updating:', error.response ? error.response.data : error.message);
+    toast.error(
+      error.response?.data?.message || 'Error while updating description'
+    );
+    console.error('Error while updating:', error.response || error.message);
   }
 };
 </script>
@@ -49,15 +69,15 @@ const handleUpdate = async () => {
           <img class="max-h-5 h-auto w-auto" :src="pencil" alt="Edit icon" />
         </button>
       </div>
-      
-      <img :src="itemDetails.photo" alt="Item Photo" class="mb-4 w-full max-h-96 object-contain rounded-md" />
+
+      <img :src="`data:image/jpeg;base64,${itemDetails.photo}`" alt="Item Photo" class="mb-4 w-full max-h-96 object-contain rounded-md" />
       <p><strong>Category:</strong> {{ itemDetails.category }}</p>
-      
+
       <div v-if="isEditing">
         <label for="description" class="block font-bold">Edit Description:</label>
-        <textarea 
-          id="description" 
-          v-model="updatedDescription" 
+        <textarea
+          id="description"
+          v-model="updatedDescription"
           class="w-full mt-2 p-2 border rounded-md"
         ></textarea>
         <button @click="handleUpdate" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Save</button>

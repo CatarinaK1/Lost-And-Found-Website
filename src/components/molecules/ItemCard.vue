@@ -38,7 +38,13 @@ const handleDelete = async (id) => {
     </div>
     <div class="mb-2 p-4 flex flex-col items-center">
       <div class="image-container w-full h-[20vh] overflow-hidden relative mb-6">
-        <img :src="details.photo" alt="Item Photo" class="absolute inset-0 w-full h-full object-cover" />
+        <img
+          v-if="details.photo"
+          :src="`data:image/jpeg;base64,${details.photo}`"
+          alt="Item Photo"
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <div v-else class="text-my-white text-center">No Image Available</div>
       </div>
       <p class="text-my-white font-bold text-base">{{ details.name }}</p>
       <div class="flex items-center mt-3 mb-3">
