@@ -55,23 +55,23 @@
     </div>
 
     <div class="relative z-0 w-full mb-5 group">
-      <select 
-        v-model="office" 
-        id="offices" 
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer" 
+      <select
+        v-model="office"
+        id="offices"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-green-600 peer"
         required
       >
         <option value="" disabled>Select your office</option>
-        <option value="Dobling">Dobling</option>
-        <option value="Briggitenau">Briggitenau</option>
-        <option value="Leopoldstadt">Leopoldstadt</option>
-        <option value="Donaustadt">Donaustadt</option>
-        <option value="Floridsdorf">Floridsdorf</option>
-        <option value="Simmering">Simmering</option>
-        <option value="Landstrasse">Landstrasse</option>
-        <option value="Innere Stadt">Innere Stadt</option>
+        <option v-for="office in offices" :key="office.address" :value="office">
+          {{ office.address }}
+        </option>
       </select>
-      <label for="offices" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-auto peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Select your office</label>
+      <label
+        for="offices"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-auto peer-focus:text-green-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+      >
+        Select your office
+      </label>
     </div>
 
     <div class="relative z-0 w-full mb-5 group">
@@ -116,9 +116,9 @@ import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 import { useAuthStore } from '../../stores/AuthStore';
-
 const authStore = useAuthStore();
 const toast = useToast();
+
 
 const name = ref('');
 const category = ref('');
@@ -126,6 +126,7 @@ const foundPlace = ref('');
 const foundDate = ref('');
 const office = ref('');
 const description = ref('');
+const offices = ref([]);
 const photo = ref('');
 
 const handleFileChange = (event) => {
@@ -140,29 +141,41 @@ const handleFileChange = (event) => {
 };
 
 const submitForm = async () => {
-  const payload = {
-    name: name.value,
-    category: category.value,
-    foundPlace: foundPlace.value,
-    foundDate: foundDate.value,
-    office: office.value,
-    description: description.value,
-    photo: photo.value,
-  };
+    const payload = {
+      name: name.value,
+      category: category.value,
+      foundPlace: foundPlace.value,
+      foundDate: foundDate.value,
+      office: office.value?.address,
+      description: description.value,
+      photo: photo.value
+    };
 
-  try {
+    try{
     await axios.post('/api/found_items/submit', payload, {
       headers: {
         'Authorization': `Bearer ${authStore.getToken}`,
         'Content-Type': 'application/json',
       },
+
     });
-    toast.success('Item submitted successfully!');
+    toast.success('Form submitted successfully!');
     clearForm();
   } catch (error) {
     const errorMessage = error.response?.data?.message || error.message || 'Unknown error occurred.';
-  toast.error(`Error submitting item: ${errorMessage}`);
-}
+    toast.error(`Error submitting item: ${errorMessage}`);
+  }
+};
+
+
+const fetchOffices = async () => {
+  try {
+    const response = await axios.get('/api/offices');
+    offices.value = response.data;
+  } catch (error) {
+    toast.error('Failed to fetch offices.');
+    console.error(error);
+  }
 };
 
 const clearForm = () => {
@@ -174,4 +187,6 @@ const clearForm = () => {
   description.value = '';
   photo.value = '';
 };
+
+fetchOffices();
 </script>
