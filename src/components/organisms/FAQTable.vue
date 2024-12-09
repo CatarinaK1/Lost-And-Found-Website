@@ -8,6 +8,7 @@ const faqs = ref([]);
 
 
 onMounted(async () => {
+ 
   try {
     // Fetch all FAQs
     const response = await axios.get('/api/faqs');

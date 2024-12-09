@@ -27,8 +27,8 @@ const handleSubmit = async () => {
   try {
     if (errorBody.value === false) {
       const newQuestion = {
-        Question: body.value,
-        Answer: "Wait for our staff to provide the answer"
+        question: body.value,
+        answer: "Wait for our staff to provide the answer"
       };
       console.log(newQuestion); // Log the incoming request
       await axios.post('/api/faqs/ask', newQuestion,

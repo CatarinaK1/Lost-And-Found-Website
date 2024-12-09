@@ -11,7 +11,7 @@ import axios from 'axios';
 const router = useRouter();
 const authStore = useAuthStore();
 
-const faqs = ref([]);
+const faqs = ref([]);// Reactive
 
 // Fetch FAQs from the backend
 const fetchAllFAQs = async () => {
