@@ -3,6 +3,8 @@ import { defineEmits,defineProps,onMounted,ref } from 'vue';
 import LogOutButton from '@/components/molecules/LogOutButton.vue'
 import TableUser from '@/components/organisms/TableUser.vue'
 import ChangePassword from '@/components/organisms/ChangePassword.vue';
+import ChangeEmail from '@/components/organisms/changeEmail.vue';
+
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/AuthStore';
@@ -45,6 +47,7 @@ onMounted(async () => {
         </div>
         <TableUser :userDetail="userDetails" />
         <ChangePassword />
+        <ChangeEmail />
         <div class="flex justify-center items-center mt-4">
           <LogOutButton />
         </div>
