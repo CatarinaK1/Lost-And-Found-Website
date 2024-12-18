@@ -7,7 +7,11 @@ import { RouterView } from 'vue-router';
 
 <template>
   <MainNavbar/>
+  <!-- To avoid re-render -->
+  <keep-alive>
   <RouterView /> 
+  </keep-alive>
+
   <Footer></Footer>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup>
-import logo from '@/assets/images/logo.png';
+import logo from '@/assets/images-webp/logo.webp';
 
 </script>
 
@@ -8,7 +8,10 @@ import logo from '@/assets/images/logo.png';
         <div class="flex flex-col bg-my-gray px-8 py-8 rounded-top-3xl">
             <div class="flex justify-between items-center px-12 sm:px-4">
                 <div class="flex items-center ml-8 mr-4 mb-2">
-                    <img class="max-h-36 h-auto w-auto" :src="logo" alt="Logo" />
+                <picture>
+                    <source :srcset="logo" type="image/webp" />
+                    <img class="max-h-36 h-auto w-auto" :src="logo" alt="Logo" loading="lazy" width="250" height="150"/>
+                </picture>
                 </div>
                 <div class="flex flex-col">
                     <div class="bg-my-green rounded-xl text-my-white py-1 px-3 self-start">

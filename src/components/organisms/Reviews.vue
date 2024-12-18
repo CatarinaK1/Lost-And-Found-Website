@@ -49,16 +49,17 @@ const nextPage = () => {
             @click="prevPage" 
             class="flex-shrink-0 bg-my-green hover:bg-my-dark-green text-my-white w-16 py-2 px-4 mr-6 rounded"
           >
-            <img :src="left">
+            <img :src="left" alt="See more reviews on the left ">
           </button>
           <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <ReviewCard v-for="review in cutReviews" :key="review.id" :details="review"/>
           </div>
           <button 
+            aria-label="right arrow"
             @click="nextPage" 
             class="flex-shrink-0 bg-my-green hover:bg-my-dark-green text-my-white w-16 py-2 px-4 ml-6 rounded"
           >
-            <img :src="right">
+            <img :src="right" alt="See more reviews on the right">
           </button>
         </div>
       </div>

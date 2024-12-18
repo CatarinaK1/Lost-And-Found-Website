@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+convert-to-webp.sh
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

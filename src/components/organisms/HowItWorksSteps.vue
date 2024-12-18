@@ -71,7 +71,7 @@ export default {
     <div class="how-it-works-section">
         <h2>{{ title }}</h2>
         <div class="step" v-for="(step, index) in steps" :key="index">
-        <img :src="images[index]" alt="Step image" class="step-image" />
+        <img :src="images[index]" alt="Step image" class="step-image" aria-hidden="true"/>
           <h3>{{ stepTitle[index] }}</h3>
           <p>{{ step }}</p>
       </div>
