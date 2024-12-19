@@ -51,11 +51,12 @@ const data = computed(() => {
   }
 });
 
+const res = ref();
 
 onMounted(async() => {
   try {
-    const res = await axios.get(`https://restcountries.com/v3.1/all`);
-    initial_data.value = res.data.sort((a, b) => {
+    res.value = await axios.get(`https://restcountries.com/v3.1/all`);
+    initial_data.value = res.value.data.sort((a, b) => {
 
       if(priorityCountries.includes(a.name.common) && priorityCountries.includes(b.name.common)){
         return priorityCountries.indexOf(a.name.common) - priorityCountries.indexOf(b.name.common);
@@ -77,12 +78,26 @@ onMounted(async() => {
   name.value = props.userDetail.name;
   surname.value = props.userDetail.surname;
   salutation.value = props.userDetail.salutation;
-  country.value = props.userDetail.country;
+  selectedCountry.value = getCountryNameByCCA2(props.userDetail.country);
+  search.value = selectedCountry.value;
+  console.log(selectedCountry.value);
 });
 
-const setSearch = (value) =>{
-  search.value = value;
-  selectedCountry.value = value;
+
+const getCountryNameByCCA2 = (cca2Code) => {
+  try{
+    const found_country = res.value.data.find(country => country.cca2 === cca2Code.toUpperCase());
+    country.value = found_country.name.common;
+    return found_country.name.common;
+  }catch{
+    return "";
+  } 
+}
+
+
+const setSearch = (value_code, value_name) =>{
+  search.value = value_name;
+  selectedCountry.value = value_code;
 }
 
 
@@ -188,6 +203,7 @@ const handleSubmit = async () => {
       });
       editMode.value = false;
       fetchData();
+      getCountryNameByCCA2(userDetailsFull.value.country);
     }  catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response) {
@@ -292,7 +308,7 @@ const handleSubmit = async () => {
               <input id="search" v-model="search" @input="handleInput"  class="border text-my-gray border-gray-300 mb-2 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-my-green placeholder-my-gray text-xs" />
                 <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 max-h-40 overflow-y-auto">
                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-                  <li  v-for="item in data" :key="item.name" @click="setSearch(item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
+                  <li  v-for="item in data" :key="item.name" @click="setSearch(item.cca2, item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
                   </ul>
                 </div>
             </td>
@@ -354,7 +370,7 @@ const handleSubmit = async () => {
           </tr>
           <tr>
             <td class="pr-4">Country:</td>
-            <td class="text-right">{{ userDetailsFull.country }}</td>
+            <td class="text-right">{{ getCountryNameByCCA2(userDetailsFull.country) }}</td>
           </tr>
         </tbody>
       </table>

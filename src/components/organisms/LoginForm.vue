@@ -108,18 +108,14 @@ const handleSubmit = async () => {
         });
         errors.value = validationErrors;
         for (const key in errors.value) {
-          if (errors.value.hasOwnProperty(key)) {
-            modalError.value += `${errors.value[key]}` + `<br>`;
-          }
+          modalError.value += `${errors.value[key]}` + `<br>`;
           isModalOpen.value = true;
         }
       }
       else if (axios.isAxiosError(error)) {
-        if (error.response) {
-          modalError.value = error.response.data || 'An error occurred';
-        } else if (error.request) {
-          modalError.value = 'Server does not respond.';
-        } else {
+        if (error.response.status === 401) {
+          modalError.value = "Wrong username or password";
+        }else {
           modalError.value = `Error: ${error.message}`;
         }
       } else {

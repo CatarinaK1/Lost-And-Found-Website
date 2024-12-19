@@ -143,7 +143,7 @@
           <!-- Dropdown -->
           <div v-if="data.length > 0" id="dropdown" class="bg-my-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 max-h-40 overflow-y-auto">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-              <li  v-for="item in data" :key="item.name" @click="setSearch(item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
+              <li  v-for="item in data" :key="item.name" @click="setSearch(item.cca2, item.name.common)"class="px-4 py-2 text-xs">{{ item?.name?.common }}</li>
             </ul>
           </div>
           <div v-if="errors.country" class="flex items-center mt-3 mb-3">
@@ -191,7 +191,9 @@
   }),
     name: yup.string().required("Name is required"),
     surname: yup.string().required("Surname is required"),
-    username: yup.string().required("Username is required"),
+    username: yup.string()
+      .required("Username is required")
+      .min(5, "Username should not be shorter than 5 characters"),
     mail: yup.string().email("Email is invalid").required("Email is required"),
     password: yup
       .string()
@@ -253,9 +255,9 @@ const data = computed(() => {
 });
 
 
-const setSearch = (value) =>{
-  search.value = value;
-  selectedCountry.value = value;
+const setSearch = (value_code, value_name) =>{
+  search.value = value_name;
+  selectedCountry.value = value_code;
 }
 
 
