@@ -78,9 +78,9 @@ onMounted(async() => {
   name.value = props.userDetail.name;
   surname.value = props.userDetail.surname;
   salutation.value = props.userDetail.salutation;
-  selectedCountry.value = getCountryNameByCCA2(props.userDetail.country);
-  search.value = selectedCountry.value;
-  console.log(selectedCountry.value);
+  selectedCountry.value = props.userDetail.country;
+  search.value = getCountryNameByCCA2(selectedCountry.value);
+  country.value = props.userDetail.country;
 });
 
 
@@ -196,7 +196,7 @@ const handleSubmit = async () => {
           salutation: personalizedSalutation.value || salutation.value,
           country: country.value
       }
-      await axios.put('./api/users', updUser, {
+      await axios.patch(`./api/users/${userDetailsFull.value.username}`, updUser, {
         headers: {
           'Authorization': `Bearer ${authStore.getToken}`,
         }

@@ -90,7 +90,7 @@ const handleSubmit = async () => {
     toast.success('Successfully logged in.')
     const token = response.data.accessToken;
     authStore.setToken(token);
-    authStore.setUser(username);
+    authStore.setUser(username.value);
 
     const decodedToken = jwtDecode.jwtDecode(token);
     const roles = decodedToken.roles || [];

@@ -36,12 +36,16 @@ const closeModal = () => {
   modalError.value = "";
 };
 
+
+const emit = defineEmits(['changed']);
+
 const handleSubmit = async () => {
   const isValid = await validateEmailForm();
   if (!isValid) {
     return;
   }
   await changeEmail();
+  emit("changed");
 };
 
 // Change Email Functionality

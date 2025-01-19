@@ -4,6 +4,7 @@ import LogOutButton from '@/components/molecules/LogOutButton.vue'
 import TableUser from '@/components/organisms/TableUser.vue'
 import ChangePassword from '@/components/organisms/ChangePassword.vue';
 import ChangeEmail from '@/components/organisms/changeEmail.vue';
+import UsersItems from '../components/organisms/UsersItems.vue';
 
 import axios from 'axios'
 import { useRouter } from 'vue-router';
@@ -15,6 +16,24 @@ const router = useRouter();
 
 const userDetails = ref(null);
 
+
+const fetchData = (async() =>{
+  try {
+    if(authStore.getToken){
+    const response = await axios.get("/api/user", {
+        headers: {
+          'Authorization': `Bearer ${authStore.getToken}`,
+        }
+    });
+    if (response.data) {
+      userDetails.value = response.data;
+    } else {
+      console.error('No user found');
+    }}
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+  }
+})
 
 onMounted(async () => {
   try {
@@ -47,7 +66,8 @@ onMounted(async () => {
         </div>
         <TableUser :userDetail="userDetails" />
         <ChangePassword />
-        <ChangeEmail />
+        <ChangeEmail @changed="fetchData"/>
+        <UsersItems :userDetail="userDetails"/>
         <div class="flex justify-center items-center mt-4">
           <LogOutButton />
         </div>

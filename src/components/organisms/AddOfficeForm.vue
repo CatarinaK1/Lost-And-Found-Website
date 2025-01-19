@@ -11,6 +11,7 @@ const address = ref("");
 const photo = ref("");
 const description = ref("");
 const uploaded = ref(false);
+const filePicture = ref(null);
 
 const districts = ref([]);
 const selectedDistrict = ref();
@@ -28,20 +29,24 @@ const validatePhoneNumber = () => {
 
 const validateDescription = () => description.length <= 300;
 
-
+const formData = new FormData();
 
 const handleSubmit = async () => {
+    
     try {
-      const newOffice = {
-          district: selectedDistrict.value,
-          phoneNumber: phoneNumber.value,
-          address: address.value,
-          photo: photo.value,
-          description: description.value
-      }
-      await axios.post('/api/offices', newOffice, {
+      const dtoBlob = new Blob([JSON.stringify({
+            district: selectedDistrict.value,
+            phoneNumber: phoneNumber.value,
+            address: address.value,
+            description: description.value
+      })], { type: 'application/json' });
+
+      formData.append("dto", dtoBlob, "dto.json");
+
+      await axios.post('/api/offices', formData, {
         headers: {
           'Authorization': `Bearer ${authStore.getToken}`,
+          'Content-Type': 'multipart/form-data',
         }
       });
       toast.success('Successfully added office');
@@ -80,6 +85,7 @@ const uploadPhoto = (event) => {
       photo.value = reader.result.split(',')[1];
     };
     reader.readAsDataURL(file);
+    formData.append("file", file);
   }
   uploaded.value = true;
 };

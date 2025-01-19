@@ -102,6 +102,7 @@ const uploadPhoto = (event) => {
       photo.value = reader.result.split(',')[1];
     };
     reader.readAsDataURL(file);
+    formData.append("file", file);
   }
 };
 
@@ -114,8 +115,18 @@ const closeModal = () => {
 }
 const errors = ref({});
 
+const formData = new FormData();
+
 const handleSubmit = async () => {
     try {
+      const dtoBlob = new Blob([JSON.stringify({
+          district: selectedDistrict.value,
+          phoneNumber: phoneNumber.value,
+          address: address.value,
+          description: description.value
+      })], { type: 'application/json' });
+
+      formData.append("dto", dtoBlob, "dto.json");
       const updOffice = {
           district: selectedDistrict.value,
           phoneNumber: phoneNumber.value,
@@ -124,9 +135,10 @@ const handleSubmit = async () => {
           description: description.value
       }
       await schema.validate(updOffice, { abortEarly: false });
-      await axios.put('/api/offices/'+props.details.id, updOffice, {
+      await axios.put('/api/offices/'+props.details.id, formData, {
         headers: {
           'Authorization': `Bearer ${authStore.getToken}`,
+          'Content-Type': 'multipart/form-data',
         }
       });
       editMode.value = false;

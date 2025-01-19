@@ -12,7 +12,7 @@ const props = defineProps({
 
 
 <template>
-    <div v-if="office" class="flex flex-col items-center">
+  <div v-if="office" class="flex flex-col items-center">
   <div class="flex flex-col">
     <div class="flex flex-col rounded-lg justify-center items-center bg-my-green mt-4 mb-4 px-4">
       <div class="text-my-white font-bold text-2xl text-center mt-6 mb-6">
