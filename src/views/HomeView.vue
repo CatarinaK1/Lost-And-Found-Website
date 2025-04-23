@@ -15,12 +15,12 @@ import happyImage from '@/assets/images-webp/happy-man.webp';
 
 
 <template>
-  <meta name="Home page for Krakow's lost and found website">
+  <meta name="Home page for Vienna's lost and found website">
   <AboutHome
     tabindex="0"
     :image= "sadImage"
-    header="Have you lost something in Kraków?"
-    text="Misplaced something in Kraków? We specialize in reconnecting lost items with their owners. Search through our catalog of found items!"
+    header="Have you lost something in Vienna?"
+    text="Misplaced something in Vienna? We specialize in reconnecting lost items with their owners. Search through our catalog of found items!"
     linkTo="/found"
     linkText="Browse found items"
     />

@@ -285,7 +285,7 @@ const handleInput = () => {
 
   const errors = ref({});
 
-  const priorityCountries = ['Poland'];
+  const priorityCountries = ['Austria', 'Germany', 'Switzerland'];
   
   onMounted(async () => {
   try {

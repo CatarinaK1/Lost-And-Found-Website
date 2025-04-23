@@ -29,7 +29,7 @@ const handleSubmitPhoto = () => {
 
 const selectedCountry = ref();
 
-const priorityCountries = ['Poland'];
+const priorityCountries = ['Austria', 'Germany', 'Switzerland'];
 const search = ref(null);
 const initial_data = ref([])
 const data = computed(() => {
