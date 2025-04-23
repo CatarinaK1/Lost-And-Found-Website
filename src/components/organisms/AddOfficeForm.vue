@@ -23,7 +23,7 @@ const authStore = useAuthStore();
   const toast = useToast();
 
 const validatePhoneNumber = () => {
-    const phoneRegex = /^(?:\+43|0)(?:\s?\d{1,4})(?:\s?\d{1,4})(?:\s?\d{4})$/;
+    const phoneRegex = /^(?:\+48|48|0)?\s?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/;
     isPhoneError.value = !phoneRegex.test(phoneNumber.value);
   };
 

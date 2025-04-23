@@ -5,8 +5,8 @@ import RegisterNowLink from '@/components/molecules/RegisterNowLink.vue';
 
 
 // Images
-import ImagesStephansplatz from '@/assets/images/stephansplatz.jpg';
-import ImageLostAndFoundBox from '@/assets/images/LostAndFoundBox4.jpg';
+import ImageRynek from '@/assets/images/rynek1.jpg';
+import ImageWawel from '@/assets/images/wawel1.jpg';
 
 
 
@@ -20,8 +20,8 @@ export default {
   },
   data() {
     return {
-      ImageLostAndFoundBox,
-      ImagesStephansplatz
+      ImageWawel,
+      ImageRynek
     };
   }
 }
@@ -44,17 +44,17 @@ export default {
   <div class="about-page">
     <!-- First section: Image on the left, text on the right -->
     <AboutSection
-      :image="ImagesStephansplatz"
+      :image="ImageRynek"
       header="Our Mission"
       :text="[
-        'Welcome to Vienna\'s premier Lost and Found service! Located in the heart of this historic city, we are dedicated to helping both locals and visitors reconnect with their lost belongings.',
-        'Whether you\'ve misplaced something on the bustling streets of Vienna or found an item while exploring its iconic landmarks, we\’re here to make the process of reporting and recovering lost items as simple and efficient as possible.'
+        'Welcome to Krakow\'s premier Lost and Found service! Located in the heart of this historic city, we are dedicated to helping both locals and visitors reconnect with their lost belongings.',
+        'Whether you\'ve misplaced something on the bustling streets of Krakow or found an item while exploring its iconic landmarks, we\’re here to make the process of reporting and recovering lost items as simple and efficient as possible.'
       ]"
     />
 
     <!-- Second section: Image on the right, text on the left -->
     <AboutMissionSection
-      :image= "ImageLostAndFoundBox"
+      :image= "ImageWawel"
       header="How It Works"
       :text="[
         'Too often, lost items lead to unnecessary replacements, adding to the strain on our planet.',

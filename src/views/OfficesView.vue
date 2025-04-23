@@ -20,7 +20,7 @@ const authStore = useAuthStore();
         Our offices
       </div>
       <div class="login-caption font-bold text-my-green text-base text-center mb-4">
-        Check our locations all around Vienna
+        Check our locations all around Krakow
       </div>
       <OfficeCards />
     </div>

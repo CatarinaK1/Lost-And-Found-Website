@@ -18,14 +18,14 @@ import logo from '@/assets/images-webp/logo.webp';
                         <p class="text-sm text-my-white">Contact us:</p>
                     </div>
                     <div class="mb-4 mt-2 ml-1 space-y-1">
-                        <p class="text-sm text-my-white">Email: contact@lostandfound.at</p>
-                        <p class="text-sm text-my-white">Phone: 123 4567 89</p>
-                        <p class="text-sm text-my-white">Address: Höchstädtplatz 6, 1200 Wien</p>
+                        <p class="text-sm text-my-white">Email: contact@lostandfound.pl</p>
+                        <p class="text-sm text-my-white">Phone: +48 12 345 67 89</p>
+                        <p class="text-sm text-my-white">Address: Rynek Główny 1, 30-001 Kraków</p>
                     </div>
                 </div>
             </div>
             <div class="w-full h-0.5 bg-my-white mt-4 mb-2"></div>
-            <div class="mt-2 text-sm text-my-white px-12">© 2024 Lost and found. All Rights Reserved.</div>
+            <div class="mt-2 text-sm text-my-white px-12">© 2025 Lost and found. All Rights Reserved.</div>
         </div>
         
     </section>

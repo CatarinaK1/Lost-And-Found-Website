@@ -26,7 +26,7 @@ const dictionary = ref({
 
 
 const selectedCountry = ref();
-const priorityCountries = ['Austria', 'Germany', 'Switzerland'];
+const priorityCountries = ['Poland'];
 const search = ref(null);
 const initial_data = ref([])
 

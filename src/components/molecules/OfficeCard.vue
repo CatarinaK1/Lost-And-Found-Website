@@ -22,7 +22,7 @@ const emit = defineEmits(['changed']);
     phoneNumber: yup
     .string()
     .matches(
-      /^(?:\+43|0)(?:\s?\d{1,4})(?:\s?\d{1,4})(?:\s?\d{4})$/,
+      /^(?:\+48|48|0)?\s?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/,
       'Invalid phone number format'
     )
     .required('Phone number is required'),
